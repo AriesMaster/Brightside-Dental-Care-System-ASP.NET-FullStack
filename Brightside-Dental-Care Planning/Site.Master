@@ -15,7 +15,13 @@
     <webopt:bundlereference runat="server" path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
-</head>
+    <style type="text/css">
+        .auto-style1 {
+            color: #FF0066;
+        }
+    </style>
+
+    </head>
 <body>
     <form runat="server">
         <asp:ScriptManager runat="server">
@@ -39,17 +45,23 @@
 
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" runat="server" href="~/">Application name</a>
+                <a class="navbar-brand" runat="server" href="~/3homepage.aspx">Brightside Dental Care</a>
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/About">About</a></li>
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Contact">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/3homepage.aspx">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="4service%20offered.aspx">Services Offered</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/7About.aspx">About</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/8Contact.aspx">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="2login.aspx"><span class="auto-style1">BOOK NOW</span></a></li>
+                       
+                        
                     </ul>
+                    <p>
+                        &nbsp;</p>
                 </div>
             </div>
         </nav>
@@ -58,7 +70,7 @@
             </asp:ContentPlaceHolder>
             <hr />
             <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
+                <p>&copy; <%: DateTime.Now.Year %> - Brightside Dental Care</p>
             </footer>
         </div>
     </form>
