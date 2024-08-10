@@ -13,5 +13,10 @@ namespace Brightside_Dental_Care_Planning
         {
 
         }
+
+        protected void appListBtn_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
