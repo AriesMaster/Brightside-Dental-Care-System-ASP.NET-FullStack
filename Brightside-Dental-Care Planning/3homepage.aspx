@@ -5,7 +5,7 @@
     <main>
         <section class="row" aria-labelledby="aspnetTitle">
             <h1 id="aspnetTitle" class="text-center">
-                <img alt="" src="pictures/downloadkk.jpeg" style="width: 976px; height: 781px" />&nbsp; &nbsp;</h1>
+                <img alt="" src="pictures/home.png" style="width: 976px; height: 781px" />&nbsp; &nbsp;</h1>
             <p class="lead" style="text-align: center">WANT TO BOOK AN APPOINTMENT PRESS THE BUTTON BELOW</p>
             <p class="lead" style="text-align: center">&nbsp;</p>
             <p class="text-center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
