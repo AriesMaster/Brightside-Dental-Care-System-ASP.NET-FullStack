@@ -100,7 +100,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="10profile.aspx" />
     <Content Include="7About.aspx" />
     <Content Include="6Admin.aspx" />
     <Content Include="5Appointment.aspx" />
@@ -169,6 +168,7 @@
     <Content Include="Content\bootstrap-grid.rtl.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="10profile.aspx" />
     <None Include="Scripts\jquery-3.5.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.0.js" />
     <Content Include="Scripts\jquery-3.5.0.min.js" />
@@ -203,13 +203,6 @@
     <Content Include="Site.Mobile.Master" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="10profile.aspx.cs">
-      <DependentUpon>10profile.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="10profile.aspx.designer.cs">
-      <DependentUpon>10profile.aspx</DependentUpon>
-    </Compile>
     <Compile Include="6Admin.aspx.cs">
       <DependentUpon>6Admin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -299,6 +292,13 @@
     </Compile>
     <Compile Include="2signup.aspx.designer.cs">
       <DependentUpon>2signup.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="10profile.aspx.cs">
+      <DependentUpon>10profile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="10profile.aspx.designer.cs">
+      <DependentUpon>10profile.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
