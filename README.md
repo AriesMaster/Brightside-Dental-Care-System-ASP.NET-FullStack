@@ -34,3 +34,33 @@ The Brightside Dental Care Booking System is designed to facilitate efficient an
 > **Login:** Enable existing patients to log in using their email and password.
 
 > **Profile Management:** Allow patients to update their personal information and view their appointmennt  history.
+
+**APPOINTMENT MANAGEMENT**
+
+> **Booking:** Enable patients to book appointments by selecting a service type, preferred date and time and providin any additional information.
+
+> **Appointment Confirmation:** Second confirmation notifications via email upon successful booking.
+
+> **View Appointments:** Allow patients to view upcoming and past appointments.
+
+> **Cancellation?Rescheduling:** Enable paatients to cancel or reschedule appointments within allowed timeframe.
+
+**ADMMINISTRATIVE FUNCTIONS**
+
+> **Admin Login:** Provide a secure login for administrative staff to manage the system.
+
+> **Appointment Management:** Allow admin to view, confirm, cancel or reschedule appointments.
+
+> **Patient Management:** Allow admin to view, add, update, or delete patient records.
+
+> **Service Management:** Allow admin to manage the list of services offered, including adding, updating or deleting services.
+
+**DOCTOR MANAGEMENT**
+
+> **Doctor Profiles:** Allow doctors to manage their profiles and view their appointment schedules.
+
+> **Appointment Handling:** Enable doctors to confirm or request rescheduling of appointments based on their availability.
+
+**CONCLUSION**
+
+The Brightside Dental Care Booking Stystem aims to stramline the appointment booking process, enhance administrative effeciency, and improvr the overall patient experience. By addressing functional and non functional requirements, the system will provide a secure reliable and user friendly solution for managing dental care appointments.
