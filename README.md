@@ -1,4 +1,4 @@
-# Smiles-Dentistry
+#  Smiles-Dentistry
 
 **Table of Content**
 1. Introduction
