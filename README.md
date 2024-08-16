@@ -16,13 +16,13 @@ The Brightside Dental Care Booking System is designed to facilitate efficient an
 **OBJECTIVES**
 
 > Provide an intuitive booking interface for patients to schedule their dental appointments.
-> 
+
 > Manage client information securely and efficiently.
 > 
 > Streamline administrative tasks for then dental clinic staff.
-> 
+
 > Maintain accurate records of appointments and patient information.
-> 
+
 > Enhance the overall patient experience.
 
 **FUNCTIONAL REQUIREMENTS**
