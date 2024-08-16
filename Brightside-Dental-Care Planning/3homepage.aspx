@@ -2,25 +2,64 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
-    <main>
-        <section class="row" aria-labelledby="aspnetTitle">
-            <h1 id="aspnetTitle" class="text-center">
-                <img alt="" src="pictures/home.png" style="width: 976px; height: 781px" />&nbsp; &nbsp;</h1>
-            <p class="lead" style="text-align: center">WANT TO BOOK AN APPOINTMENT PRESS THE BUTTON BELOW</p>
-            <p class="lead" style="text-align: center">&nbsp;</p>
-            <p class="text-center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="1login.aspx" class="btn btn-primary btn-md" style="width: 377px; height: 80px; background-color: #FF0000;">BOOK NOW &raquo;</a>&nbsp;</p>
-        </section>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffffff;
+            color: #333333;
+            margin: 0;
+            padding: 0;
+        }
+        main {
+            padding: 40px;
+        }
+        h1 {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #333333;
+            margin-bottom: 20px;
+        }
+        .lead {
+            font-size: 1.2em;
+            color: #666666;
+            margin-bottom: 30px;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            font-size: 1.2em;
+            padding: 15px 30px;
+            border-radius: 5px;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .image-container {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .image-container img {
+            width: 80%;
+            max-width: 700px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 
-        <div class="row">
-            <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-                <h2 id="gettingStartedTitle" class="text-center">&nbsp;</h2>
-                <p class="text-center">
-                    &nbsp;</p>
-                <p class="text-center">
-                    &nbsp;</p>
-            </section>
-        </div>
+    <main>
+        <section class="image-container">
+            <h1>Welcome to Brightside Dental Care</h1>
+            <img alt="Dental Care" src="pictures/home.png" />
+        </section>
+        <p class="lead text-center">Want to book an appointment? Press the button below.</p>
+        <p class="text-center">
+            <a href="1login.aspx" class="btn btn-primary">BOOK NOW </a>&nbsp;</p>
     </main>
 
 </asp:Content>
