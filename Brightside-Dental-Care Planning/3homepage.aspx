@@ -59,8 +59,7 @@
         </section>
         <p class="lead text-center">Want to book an appointment? Press the button below.</p>
         <p class="text-center">
-            <a href="1login.aspx" class="btn btn-primary">BOOK NOW </a>&nbsp;<asp:Button ID="Button1" runat="server" Text="Button" />
-    </p>
+            <a href="1login.aspx" class="btn btn-primary">BOOK NOW </a>&nbsp;</p>
     </main>
 
 </asp:Content>

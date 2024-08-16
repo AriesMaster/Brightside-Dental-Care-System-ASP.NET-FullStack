@@ -1,73 +1,23 @@
-﻿<%@ Page Language="C#" %>
+﻿<%@ Page Title="Sign Up" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="2signup.aspx.cs" Inherits="Brightside_Dental_Care_Planning.WebForm3" %>
 
-<!DOCTYPE html>
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <main aria-labelledby="title" style="display: flex; justify-content: center; align-items: center; flex-direction: column; padding: 40px; background-color: #f4f4f4; height: 100vh;">
+        <section style="width: 100%; max-width: 400px; background-color: #ffffff; border-radius: 10px; padding: 40px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
+            <h1 id="title" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333333; margin-bottom: 20px; font-size: 2.5em; text-align: center;">Sign Up</h1>
+            
+            <asp:Panel ID="SignupPanel" runat="server" Style="width: 100%; margin: 0 auto;">
+                <asp:TextBox ID="UserName" runat="server" Placeholder="Enter your email" Font-Size="1em" Height="34px" Width="100%" Style="padding: 10px; border-radius: 5px; border: 1px solid #cccccc; margin-bottom: 20px;"></asp:TextBox>
+                
+                <asp:TextBox ID="Password" runat="server" Placeholder="Enter your password" TextMode="Password" Font-Size="1em" Height="34px" Width="100%" Style="padding: 10px; border-radius: 5px; border: 1px solid #cccccc; margin-bottom: 20px;"></asp:TextBox>
+                
+                <asp:TextBox ID="ConfirmPassword" runat="server" Placeholder="Confirm your password" TextMode="Password" Font-Size="1em" Height="34px" Width="100%" Style="padding: 10px; border-radius: 5px; border: 1px solid #cccccc; margin-bottom: 20px;"></asp:TextBox>
+                
+                <asp:Button ID="SignupButton" runat="server" BackColor="#007bff" BorderColor="#007bff" BorderStyle="Solid" BorderWidth="1px" CommandName="Signup" Font-Names="Segoe UI" Font-Size="1em" ForeColor="#ffffff" Height="50px" Text="Sign Up" Style="width: 100%; border-radius: 5px; cursor: pointer;" />
+            </asp:Panel>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title>Sign Up</title>
-    <style type="text/css">
-        .text-center {
-            text-align: center;
-        }
-        .form-container {
-            width: 50%;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #F7F7F7;
-            border: 1px solid #CCCCCC;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-    </style>
-</head>
-<body>
-    <form id="form1" runat="server">
-        <div class="form-container">
-            <table style="width: 100%;">
-                <tr>
-                    <td>First Name:</td>
-                    <td>
-                        <asp:TextBox ID="txtFirstName" runat="server" Height="20px" Width="262px"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="rfvFirstName" runat="server" ControlToValidate="txtFirstName" ErrorMessage="First name is required" ForeColor="Red">*</asp:RequiredFieldValidator>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Last Name:</td>
-                    <td>
-                        <asp:TextBox ID="txtLastName" runat="server" Height="20px" Width="262px"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="rfvLastName" runat="server" ControlToValidate="txtLastName" ErrorMessage="Last name is required" ForeColor="Red">*</asp:RequiredFieldValidator>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Email:</td>
-                    <td>
-                        <asp:TextBox ID="txtEmail" runat="server" Height="20px" Width="262px"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="txtEmail" ErrorMessage="Email is required" ForeColor="Red">*</asp:RequiredFieldValidator>
-                        <asp:RegularExpressionValidator ID="revEmail" runat="server" ControlToValidate="txtEmail" ErrorMessage="Invalid email address" ForeColor="Red" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">*</asp:RegularExpressionValidator>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Password:</td>
-                    <td>
-                        <asp:TextBox ID="txtPassword" runat="server" Height="20px" Width="262px" TextMode="Password"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ControlToValidate="txtPassword" ErrorMessage="Password is required" ForeColor="Red">*</asp:RequiredFieldValidator>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Confirm Password:</td>
-                    <td>
-                        <asp:TextBox ID="txtConfirmPassword" runat="server" Height="20px" Width="262px" TextMode="Password"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="rfvConfirmPassword" runat="server" ControlToValidate="txtConfirmPassword" ErrorMessage="Confirm password is required" ForeColor="Red">*</asp:RequiredFieldValidator>
-                        <asp:CompareValidator ID="cvConfirmPassword" runat="server" ControlToValidate="txtConfirmPassword" ErrorMessage="Passwords do not match" ForeColor="Red" ControlToCompare="txtPassword">*</asp:CompareValidator>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2" class="text-center">
-                        <asp:Button ID="btnSignUp" runat="server" Text="Sign Up" Height="30px" Width="100px" />
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </form>
-</body>
-</html>
+            <p style="text-align: center; margin-top: 20px;">
+                <asp:HyperLink ID="LoginLink" runat="server" NavigateUrl="~/1login.aspx" Style="color: #007bff; text-decoration: none;">Already have an account? Log In</asp:HyperLink>
+            </p>
+        </section>
+    </main>
+</asp:Content>
