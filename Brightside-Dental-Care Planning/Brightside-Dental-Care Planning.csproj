@@ -134,6 +134,7 @@
     <Content Include="pictures\home.png" />
     <Content Include="pictures\loca.jpg" />
     <Content Include="pictures\location.jpg" />
+    <Content Include="pictures\staff.png" />
     <Content Include="pictures\toothache.jpg" />
     <Content Include="pictures\Untitled %284%29.png" />
     <Content Include="4service offered.aspx" />
