@@ -117,7 +117,7 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <asp:Button ID="Button1" runat="server" Text="Create Profile" CssClass="btn btn-primary" />
+                            <asp:Button ID="Button1" runat="server" Text="Create Profile" CssClass="btn btn-primary" OnClick="Button1_Click1" />
                             <asp:Button ID="Button2" runat="server" Text="Back to Home" CssClass="btn btn-secondary" OnClick="Button2_Click" />
                         </td>
                     </tr>

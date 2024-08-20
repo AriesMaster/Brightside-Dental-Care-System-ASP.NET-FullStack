@@ -12,7 +12,7 @@
                 
                 <asp:TextBox ID="ConfirmPassword" runat="server" Placeholder="Confirm your password" TextMode="Password" Font-Size="1em" Height="34px" Width="100%" Style="padding: 10px; border-radius: 5px; border: 1px solid #cccccc; margin-bottom: 20px;"></asp:TextBox>
                 
-                <asp:Button ID="SignupButton" runat="server" BackColor="#007bff" BorderColor="#007bff" BorderStyle="Solid" BorderWidth="1px" CommandName="Signup" Font-Names="Segoe UI" Font-Size="1em" ForeColor="#ffffff" Height="50px" Text="Sign Up" Style="width: 100%; border-radius: 5px; cursor: pointer;" />
+                <asp:Button ID="SignupButton" runat="server" BackColor="#007bff" BorderColor="#007bff" BorderStyle="Solid" BorderWidth="1px" CommandName="Signup" Font-Names="Segoe UI" Font-Size="1em" ForeColor="#ffffff" Height="50px" Text="Sign Up" Style="width: 100%; border-radius: 5px; cursor: pointer;" OnClick="SignupButton_Click" />
             </asp:Panel>
 
             <p style="text-align: center; margin-top: 20px;">

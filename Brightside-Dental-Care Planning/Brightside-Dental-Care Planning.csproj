@@ -100,10 +100,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="11profileViewing.aspx" />
     <Content Include="7About.aspx" />
     <Content Include="6Admin.aspx" />
     <Content Include="5Appointment.aspx" />
     <Content Include="8Contact.aspx" />
+    <Content Include="App_Data\Database1.mdf" />
+    <Content Include="App_Data\Database1_log.ldf">
+      <DependentUpon>Database1.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -203,6 +208,13 @@
     <Content Include="Site.Mobile.Master" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="11profileViewing.aspx.cs">
+      <DependentUpon>11profileViewing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="11profileViewing.aspx.designer.cs">
+      <DependentUpon>11profileViewing.aspx</DependentUpon>
+    </Compile>
     <Compile Include="6Admin.aspx.cs">
       <DependentUpon>6Admin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -301,9 +313,7 @@
       <DependentUpon>10profile.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.5.0.slim.min.map" />
