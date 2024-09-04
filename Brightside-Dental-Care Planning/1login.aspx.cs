@@ -4,7 +4,7 @@ using System.Web.Configuration;
 
 namespace Brightside_Dental_Care_Planning
 {
-    public partial class WebForm2 : System.Web.UI.Page
+    public partial class _1login : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -14,11 +14,27 @@ namespace Brightside_Dental_Care_Planning
         {
             string email = UserName.Text;
             string password = Password.Text;
+            string userType = UserTypeDropDown.SelectedValue;
 
             string connectionString = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "SELECT COUNT(*) FROM Patient WHERE email = @Email AND password = @Password";
+                string query = string.Empty;
+
+                // Determine which table to query based on the user type
+                if (userType == "Patient")
+                {
+                    query = "SELECT COUNT(*) FROM Patient WHERE email = @Email AND password = @Password";
+                }
+                else if (userType == "Doctor")
+                {
+                    query = "SELECT COUNT(*) FROM Doctor WHERE email = @Email AND password = @Password";
+                }
+                else if (userType == "Admin")
+                {
+                    query = "SELECT COUNT(*) FROM Admin WHERE email = @Email AND password = @Password";
+                }
+
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Email", email);
@@ -31,21 +47,24 @@ namespace Brightside_Dental_Care_Planning
 
                         if (count > 0)
                         {
-                            if (AlreadyHaveProfileCheckBox.Checked)
+                            // Redirect based on user type
+                            if (userType == "Patient")
                             {
-                                // Redirect to profile viewing page if the checkbox is checked
-                                Response.Redirect("11profileViewing.aspx");
-                            }
-                            else
-                            {
-                                // Redirect to the default profile page
                                 Response.Redirect("10profile.aspx");
+                            }
+                            else if (userType == "Doctor")
+                            {
+                                Response.Redirect("9Doctor.aspx"); // Redirect to doctor's dashboard
+                            }
+                            else if (userType == "Admin")
+                            {
+                                Response.Redirect("6Admin.aspx"); // Redirect to admin page
                             }
                         }
                         else
                         {
                             // Login failed
-                            Response.Write("Invalid email or password.");
+                            Response.Write("Invalid email, password, or user type.");
                         }
                     }
                     catch (Exception ex)

@@ -11,7 +11,7 @@ namespace Brightside_Dental_Care_Planning
 {
 
 
-    public partial class WebForm2
+    public partial class _1login
     {
 
         /// <summary>
@@ -22,6 +22,24 @@ namespace Brightside_Dental_Care_Planning
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel LoginPanel;
+
+        /// <summary>
+        /// Label3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label3;
+
+        /// <summary>
+        /// UserTypeDropDown control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList UserTypeDropDown;
 
         /// <summary>
         /// UserName control.
