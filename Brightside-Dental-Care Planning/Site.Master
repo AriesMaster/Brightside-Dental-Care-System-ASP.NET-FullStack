@@ -47,8 +47,18 @@
         }
 
         .navbar-nav .auto-style1 {
-            color: #FF0066 !important;
-            font-weight: bold;
+            color: #FF0066 !important; /* Red color */
+            font-weight: bold; /* Bold text */
+            font-size: 1.2rem; /* Slightly larger font size */
+            text-transform: uppercase; /* Uppercase text */
+            border-bottom: 2px solid #FF0066; /* Red underline */
+            padding: 0.5rem; /* Padding for better click area */
+            transition: color 0.3s ease, border-bottom 0.3s ease;
+        }
+
+        .navbar-nav .auto-style1:hover {
+            color: #d4004d !important; /* Darker red on hover */
+            border-bottom: 2px solid #d4004d; /* Darker red underline on hover */
         }
 
         .container {
@@ -140,18 +150,20 @@
                 <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/3homepage.aspx">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" runat="server" href="4service%20offered.aspx">Services </a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="4service%20offered.aspx">Services</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/7About.aspx">About</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/8Contact.aspx">Contact</a></li>
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/1login.aspx"><span class="auto-style1">BOOK NOW</span></a></li>
+                        <!-- Login links added here -->
+                        <li class="nav-item">
+                            <a class="nav-link auto-style1" runat="server" href="~/1login.aspx">Book Now</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/1login.aspx">Login</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
 
         <div class="container body-content">
-           
-
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
             
