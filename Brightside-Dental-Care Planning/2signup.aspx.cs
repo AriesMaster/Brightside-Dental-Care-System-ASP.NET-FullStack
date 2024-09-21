@@ -48,7 +48,7 @@ namespace Brightside_Dental_Care_Planning
                     {
                         connection.Open();
                         command.ExecuteNonQuery();
-                        Response.Redirect("1login.aspx");
+                        //Response.Redirect("1login.aspx");
                     }
                     catch (Exception ex)
                     {

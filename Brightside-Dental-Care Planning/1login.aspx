@@ -17,8 +17,6 @@
                 <asp:TextBox ID="UserName" runat="server" Font-Size="1em" Height="34px" Placeholder="Enter your email" Style="padding: 10px; border-radius: 5px; border: 1px solid #cccccc; margin-bottom: 20px;" Width="100%"></asp:TextBox>
                 <asp:TextBox ID="Password" runat="server" Font-Size="1em" Height="34px" Placeholder="Enter your password" Style="padding: 10px; border-radius: 5px; border: 1px solid #cccccc; margin-bottom: 20px;" TextMode="Password" Width="100%"></asp:TextBox>
                 
-                <asp:CheckBox ID="AlreadyHaveProfileCheckBox" runat="server" Style="margin-bottom: 20px;" Text="Already have a profile?" />
-                
                 <asp:Button ID="LoginButton" runat="server" BackColor="#007bff" BorderColor="#007bff" BorderStyle="Solid" BorderWidth="1px" CommandName="Login" Font-Names="Segoe UI" Font-Size="1em" ForeColor="#ffffff" Height="50px" Text="Log In" OnClick="LoginButton_Click" Style="width: 100%; border-radius: 5px; cursor: pointer; margin-bottom: 20px;" />
             </asp:Panel>
 
