@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Web.Configuration;
+using System.Security.Cryptography;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Brightside_Dental_Care_Planning
 {
@@ -12,9 +15,17 @@ namespace Brightside_Dental_Care_Planning
 
         protected void LoginButton_Click(object sender, EventArgs e)
         {
-            string email = UserName.Text;
-            string password = Password.Text;
+            string email = UserName.Text.Trim();
+            string password = Password.Text.Trim();
             string userType = UserTypeDropDown.SelectedValue;
+
+            // Validate email format
+            if (!IsValidEmail(email))
+            {
+                LoginErrorLabel.Text = "Please enter a valid email format.";
+                LoginErrorLabel.Visible = true;
+                return;
+            }
 
             string connectionString = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -24,28 +35,27 @@ namespace Brightside_Dental_Care_Planning
                 // Determine which table to query based on the user type
                 if (userType == "Patient")
                 {
-                    query = "SELECT COUNT(*) FROM Patient WHERE email = @Email AND password = @Password";
+                    query = "SELECT password FROM Patient WHERE email = @Email";
                 }
                 else if (userType == "Doctor")
                 {
-                    query = "SELECT COUNT(*) FROM Doctor WHERE email = @Email AND password = @Password";
+                    query = "SELECT password FROM Doctor WHERE email = @Email";
                 }
                 else if (userType == "Admin")
                 {
-                    query = "SELECT COUNT(*) FROM Admin WHERE email = @Email AND password = @Password";
+                    query = "SELECT password FROM Admin WHERE email = @Email";
                 }
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Email", email);
-                    command.Parameters.AddWithValue("@Password", password);
 
                     try
                     {
                         connection.Open();
-                        int count = (int)command.ExecuteScalar();
+                        string storedPasswordHash = command.ExecuteScalar() as string;
 
-                        if (count > 0)
+                        if (storedPasswordHash != null && VerifyPassword(password, storedPasswordHash))
                         {
                             // Redirect based on user type
                             if (userType == "Patient")
@@ -54,26 +64,47 @@ namespace Brightside_Dental_Care_Planning
                             }
                             else if (userType == "Doctor")
                             {
-                                Response.Redirect("9Doctor.aspx"); // Redirect to doctor's dashboard
+                                Response.Redirect("9Doctor.aspx");
                             }
                             else if (userType == "Admin")
                             {
-                                Response.Redirect("6Admin.aspx"); // Redirect to admin page
+                                Response.Redirect("6Admin.aspx");
                             }
                         }
                         else
                         {
                             // Login failed
-                            Response.Write("Invalid email, password, or user type.");
+                            LoginErrorLabel.Text = "Invalid email or password.";
+                            LoginErrorLabel.Visible = true;
                         }
                     }
                     catch (Exception ex)
                     {
                         // Handle exception (e.g., display an error message)
-                        Response.Write("An error occurred: " + ex.Message);
+                        LoginErrorLabel.Text = "An error occurred: " + ex.Message;
+                        LoginErrorLabel.Visible = true;
                     }
                 }
             }
         }
+
+        private bool IsValidEmail(string email)
+        {
+            // Simple regex for email validation
+            var emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            return Regex.IsMatch(email, emailPattern);
+        }
+
+        private bool VerifyPassword(string enteredPassword, string storedPasswordHash)
+        {
+            // Implement password verification using hashing
+            using (var hmac = new HMACSHA256())
+            {
+                var hashedBytes = hmac.ComputeHash(Encoding.UTF8.GetBytes(enteredPassword));
+                string hashedPassword = Convert.ToBase64String(hashedBytes);
+                return hashedPassword == storedPasswordHash;
+            }
+        }
     }
 }
+
