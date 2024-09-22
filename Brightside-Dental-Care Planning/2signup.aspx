@@ -9,9 +9,9 @@
                 <asp:Label ID="EmailLabel" runat="server" Text="Email:" AssociatedControlID="UserName" Style="display: block; margin-bottom: 10px; font-size: 1em; color: #333333;"></asp:Label>
                 <asp:TextBox ID="UserName" runat="server" Placeholder="Enter your email" Font-Size="1em" Height="34px" Width="100%" Style="padding: 10px; border-radius: 5px; border: 1px solid #cccccc; margin-bottom: 10px;"></asp:TextBox>
                 
-                <asp:RequiredFieldValidator ID="EmailRequiredValidator" runat="server" ControlToValidate="UserName" ErrorMessage="Email is required." ForeColor="Red" Style="margin-bottom: 10px;" />
+                <asp:RequiredFieldValidator ID="EmailRequiredValidator" runat="server" ControlToValidate="UserName" ErrorMessage="Email is required." ForeColor="Red" Style="display: block; margin-bottom: 5px;" />
                 <asp:RegularExpressionValidator ID="EmailRegexValidator" runat="server" ControlToValidate="UserName" ErrorMessage="Please enter a valid email format." ForeColor="Red" 
-                    ValidationExpression="^[^@\s]+@[^@\s]+\.[^@\s]+$" Style="margin-bottom: 10px;" />
+                    ValidationExpression="^[^@\s]+@[^@\s]+\.[^@\s]+$" Style="display: block; margin-bottom: 10px;" />
 
                 <asp:Label ID="PasswordLabel" runat="server" Text="Password:" AssociatedControlID="Password" Style="display: block; margin-bottom: 10px; font-size: 1em; color: #333333;"></asp:Label>
                 <asp:TextBox ID="Password" runat="server" Placeholder="Enter your password" TextMode="Password" Font-Size="1em" Height="34px" Width="100%" Style="padding: 10px; border-radius: 5px; border: 1px solid #cccccc; margin-bottom: 10px;"></asp:TextBox>
@@ -32,4 +32,6 @@
         </section>
     </main>
 </asp:Content>
+
+
 
