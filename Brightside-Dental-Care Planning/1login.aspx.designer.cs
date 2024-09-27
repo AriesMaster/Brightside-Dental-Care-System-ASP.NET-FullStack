@@ -60,22 +60,22 @@ namespace Brightside_Dental_Care_Planning
         protected global::System.Web.UI.WebControls.TextBox UserName;
 
         /// <summary>
-        /// UserNameValidator control.
+        /// RequiredFieldValidatorUserName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator UserNameValidator;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorUserName;
 
         /// <summary>
-        /// EmailValidator control.
+        /// RegularExpressionValidator1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CustomValidator EmailValidator;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
 
         /// <summary>
         /// PasswordLabel control.
@@ -96,13 +96,31 @@ namespace Brightside_Dental_Care_Planning
         protected global::System.Web.UI.WebControls.TextBox Password;
 
         /// <summary>
-        /// PasswordValidator control.
+        /// RequiredFieldValidatorPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator PasswordValidator;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidatorPassword;
+
+        /// <summary>
+        /// Label1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
+
+        /// <summary>
+        /// IncorrectLoginLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label IncorrectLoginLabel;
 
         /// <summary>
         /// LoginButton control.

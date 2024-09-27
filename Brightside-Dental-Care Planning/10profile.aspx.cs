@@ -1,62 +1,138 @@
 ﻿using System;
-using System.Configuration; // Add this namespace
+using System.Data;
 using System.Data.SqlClient;
+using System.Web.Configuration;
 using System.Web.UI;
 
 namespace Brightside_Dental_Care_Planning
 {
-    public partial class _10profile : Page
+    public partial class WebForm5 : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Code for initial page load (if any)
+            // Logic on page load (if needed)
         }
 
-        protected void Button2_Click(object sender, EventArgs e)
+        protected void CreateProfileButton_Click(object sender, EventArgs e)
         {
-            Response.Redirect("3homepage.aspx");
+            if (Page.IsValid)
+            {
+                string firstName = FirstName.Text;
+                string lastName = LastName.Text;
+                string phoneNumber = PhoneNumber.Text;
+                DateTime dateOfBirth;
+
+                // Validate DateOfBirth input
+                if (!DateTime.TryParse(DateOfBirth.Text, out dateOfBirth))
+                {
+                    ErrorLabel.Text = "Please enter a valid date of birth.";
+                    return;
+                }
+
+                string gender = Gender.SelectedValue;
+
+                // Address fields
+                string street = Street.Text;
+                string city = City.Text;
+                string province = Province.Text;
+
+                // Retrieve the Patient_Id from session
+                if (Session["Patient_Id"] == null)
+                {
+                    ErrorLabel.Text = "Patient ID not found in session.";
+                    return;
+                }
+
+                int patientId = Convert.ToInt32(Session["Patient_Id"]);
+
+                bool profileCreated = SaveProfile(patientId, firstName, lastName, phoneNumber, dateOfBirth, gender, street, city, province);
+
+                if (profileCreated)
+                {
+                    ProfileStatusLabel.Text = "Profile created successfully!";
+                    Response.Redirect("11profileview.aspx");  // Redirect to profile view after successful creation
+                }
+                else
+                {
+                    ErrorLabel.Text = "Error creating profile. Please try again.";
+                }
+            }
+            else
+            {
+                ErrorLabel.Text = "Please fill in all required fields.";
+            }
         }
 
 
-        protected void Button1_Click1(object sender, EventArgs e)
+        // Method to save the profile to the database
+        private bool SaveProfile(int patientId, string firstName, string lastName, string phoneNumber, DateTime dateOfBirth, string gender, string street, string city, string province)
         {
-            string firstName = TextBox1.Text;
-            string lastName = TextBox2.Text;
-            string dob = TextBox3.Text;
-            string gender = TextBox4.Text;
-            string phoneNumber = TextBox5.Text;
+            string connectionString = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
-            string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            // Queries to insert into Profile and Address tables
+            string profileQuery = @"INSERT INTO Profile (Patient_Id, first_name, last_name, phone_number, Date_of_Birth, Gender)
+                            VALUES (@PatientId, @FirstName, @LastName, @PhoneNumber, @DateOfBirth, @Gender)";
+
+            string addressQuery = @"INSERT INTO Address (Patient_Id, Street, City, Province)
+                            VALUES (@PatientId, @Street, @City, @Province)";
 
             try
             {
-                using (SqlConnection con = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string query = "INSERT INTO Profile (first_name, last_name, Date_of_Birth, Gender, phone_number) " +
-                                   "VALUES (@FirstName, @LastName, @DateOfBirth, @Gender, @PhoneNumber)";
+                    connection.Open();
 
-                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    // Begin a transaction to ensure both inserts succeed together
+                    SqlTransaction transaction = connection.BeginTransaction();
+
+                    try
                     {
-                        cmd.Parameters.AddWithValue("@FirstName", firstName);
-                        cmd.Parameters.AddWithValue("@LastName", lastName);
-                        cmd.Parameters.AddWithValue("@DateOfBirth", dob);
-                        cmd.Parameters.AddWithValue("@Gender", gender);
-                        cmd.Parameters.AddWithValue("@PhoneNumber", phoneNumber);
+                        // Insert into Profile table
+                        using (SqlCommand profileCommand = new SqlCommand(profileQuery, connection, transaction))
+                        {
+                            profileCommand.Parameters.AddWithValue("@PatientId", patientId);
+                            profileCommand.Parameters.AddWithValue("@FirstName", firstName);
+                            profileCommand.Parameters.AddWithValue("@LastName", lastName);
+                            profileCommand.Parameters.AddWithValue("@PhoneNumber", phoneNumber);
+                            profileCommand.Parameters.AddWithValue("@DateOfBirth", dateOfBirth);
+                            profileCommand.Parameters.AddWithValue("@Gender", gender);
 
-                        con.Open();
-                        cmd.ExecuteNonQuery();
-                        con.Close();
+                            profileCommand.ExecuteNonQuery();
+                        }
+
+                        // Insert into Address table
+                        using (SqlCommand addressCommand = new SqlCommand(addressQuery, connection, transaction))
+                        {
+                            addressCommand.Parameters.AddWithValue("@PatientId", patientId);
+                            addressCommand.Parameters.AddWithValue("@Street", street);
+                            addressCommand.Parameters.AddWithValue("@City", city);
+                            addressCommand.Parameters.AddWithValue("@Province", province);
+
+                            addressCommand.ExecuteNonQuery();
+                        }
+
+                        // Commit the transaction
+                        transaction.Commit();
+                        return true;
+                    }
+                    catch (Exception)
+                    {
+                        // Rollback the transaction in case of any errors
+                        transaction.Rollback();
+                        throw;
                     }
                 }
-
-                Response.Redirect("11profileViewing.aspx");
             }
             catch (Exception ex)
             {
-                // Log or display the error message
-                Response.Write("Error: " + ex.Message);
+                // Log the error (add appropriate logging)
+                ErrorLabel.Text = $"Error: {ex.Message}";
+                // Optionally log the stack trace or use a logging library
+                Console.WriteLine(ex.StackTrace);  // For debugging purposes
+                return false;
             }
         }
 
     }
 }
+

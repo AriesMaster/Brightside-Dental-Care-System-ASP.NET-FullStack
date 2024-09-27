@@ -11,26 +11,26 @@ namespace Brightside_Dental_Care_Planning
 {
 
 
-    public partial class _11profileViewing
+    public partial class WebForm6
     {
 
         /// <summary>
-        /// form1 control.
+        /// CreateProfileLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.Label CreateProfileLabel;
 
         /// <summary>
-        /// Label1 control.
+        /// ProfileViewPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Panel ProfileViewPanel;
 
         /// <summary>
         /// FirstNameLabel control.
@@ -51,13 +51,22 @@ namespace Brightside_Dental_Care_Planning
         protected global::System.Web.UI.WebControls.Label LastNameLabel;
 
         /// <summary>
-        /// DOBLabel control.
+        /// PhoneNumberLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label DOBLabel;
+        protected global::System.Web.UI.WebControls.Label PhoneNumberLabel;
+
+        /// <summary>
+        /// DateOfBirthLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label DateOfBirthLabel;
 
         /// <summary>
         /// GenderLabel control.
@@ -69,31 +78,31 @@ namespace Brightside_Dental_Care_Planning
         protected global::System.Web.UI.WebControls.Label GenderLabel;
 
         /// <summary>
-        /// PhoneNumberLabel control.
+        /// AddressLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label PhoneNumberLabel;
+        protected global::System.Web.UI.WebControls.Label AddressLabel;
 
         /// <summary>
-        /// ContactAdminLabel control.
+        /// ProfileStatusLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ContactAdminLabel;
+        protected global::System.Web.UI.WebControls.Label ProfileStatusLabel;
 
         /// <summary>
-        /// AdminNumberLabel control.
+        /// EditProfileButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label AdminNumberLabel;
+        protected global::System.Web.UI.WebControls.Button EditProfileButton;
 
         /// <summary>
         /// MakeAppointmentButton control.
@@ -105,21 +114,12 @@ namespace Brightside_Dental_Care_Planning
         protected global::System.Web.UI.WebControls.Button MakeAppointmentButton;
 
         /// <summary>
-        /// HomeButton control.
+        /// AppointmentStatusLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button HomeButton;
-
-        /// <summary>
-        /// CreateProfileButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button CreateProfileButton;
+        protected global::System.Web.UI.WebControls.Label AppointmentStatusLabel;
     }
 }

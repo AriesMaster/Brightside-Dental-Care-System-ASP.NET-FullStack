@@ -16,6 +16,9 @@
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
+    <!-- Include Bootstrap CSS (from CDN) -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-beta3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-whJomqj7mNb7cpeQXscIkmN49bDQ3RTPTPz46aUX64P5Upw5eQ7oqdQ93EX0pA5V" crossorigin="anonymous">
+
     <style type="text/css">
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -119,6 +122,23 @@
             line-height: 1.6;
             color: #666;
         }
+
+        /* Fix for the navbar horizontal alignment */
+        .navbar-nav {
+            display: flex;
+            flex-direction: row !important; /* Ensure horizontal alignment */
+            justify-content: flex-end; /* Align to the right */
+        }
+
+        .nav-item {
+            margin-right: 20px;
+        }
+
+        .navbar-collapse {
+            display: flex !important;
+            justify-content: flex-end;
+        }
+
     </style>
 
 </head>
@@ -128,7 +148,7 @@
             <Scripts>
                 <asp:ScriptReference Name="MsAjaxBundle" />
                 <asp:ScriptReference Name="jquery" />
-                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path ="~/Scripts/WebForms/WebForms.js" />
                 <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
                 <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
                 <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
@@ -140,20 +160,19 @@
             </Scripts>
         </asp:ScriptManager>
 
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+        <!-- Updated Navbar HTML structure -->
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
             <div class="container">
                 <a class="navbar-brand" runat="server" href="~/3homepage.aspx">Brightside Dental Care</a>
-                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto"> <!-- Aligning to the right -->
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/3homepage.aspx">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" runat="server" href="4service%20offered.aspx">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/4service%20offered.aspx">Services</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/7About.aspx">About</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/8Contact.aspx">Contact</a></li>
-                        <!-- Login links added here -->
                         <li class="nav-item">
                             <a class="nav-link auto-style1" runat="server" href="~/1login.aspx">Book Now</a>
                         </li>
@@ -173,8 +192,8 @@
         </div>
     </form>
 
-    <asp:PlaceHolder runat="server">
-        <%: Scripts.Render("~/Scripts/bootstrap.js") %>
-    </asp:PlaceHolder>
+    <!-- Include Bootstrap JavaScript (from CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-GbwpL6rltbQOkJieIjkAKN7sDxOhX/RcxF5IjfQ1Ff3VZXVfxH31N5sdbhmKtjLe" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-beta3/js/bootstrap.min.js" integrity="sha384-jCMOJm0AspsuGyn6sOJAcVVF7EmWJv0U5xJXlG8QvcnFkNleJmKfMfP8G4qXUuEg" crossorigin="anonymous"></script>
 </body>
 </html>

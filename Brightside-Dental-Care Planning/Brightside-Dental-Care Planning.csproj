@@ -43,8 +43,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=20.1.0.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <HintPath>..\packages\AjaxControlToolkit.20.1.0\lib\net40\AjaxControlToolkit.dll</HintPath>
+    </Reference>
     <Reference Include="AspNet.ScriptManager.jQuery, Version=3.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\AspNet.ScriptManager.jQuery.3.5.0\lib\net45\AspNet.ScriptManager.jQuery.dll</HintPath>
+    </Reference>
+    <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
+      <HintPath>..\packages\BouncyCastle.Cryptography.2.4.0\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.4, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.4\lib\net461\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\lib\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
@@ -100,10 +109,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="11profileViewing.aspx" />
     <Content Include="7About.aspx" />
-    <Content Include="6Admin.aspx" />
-    <Content Include="5Appointment.aspx" />
     <Content Include="8Contact.aspx" />
     <Content Include="App_Data\Database1.mdf" />
     <Content Include="App_Data\Database1_log.ldf">
@@ -174,6 +180,15 @@
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="10profile.aspx" />
+    <Content Include="11profileview.aspx" />
+    <Content Include="5Appointment.aspx" />
+    <Content Include="6Admin.aspx" />
+    <Content Include="12Editprofile.aspx" />
+    <Content Include="13Editaddress.aspx" />
+    <Content Include="14EditApointment.aspx" />
+    <Content Include="15EditAdmin.aspx" />
+    <Content Include="16EditServiceTypes.aspx" />
+    <Content Include="17EditDoctor.aspx" />
     <None Include="Scripts\jquery-3.5.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.0.js" />
     <Content Include="Scripts\jquery-3.5.0.min.js" />
@@ -208,27 +223,6 @@
     <Content Include="Site.Mobile.Master" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="11profileViewing.aspx.cs">
-      <DependentUpon>11profileViewing.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="11profileViewing.aspx.designer.cs">
-      <DependentUpon>11profileViewing.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="6Admin.aspx.cs">
-      <DependentUpon>6Admin.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="6Admin.aspx.designer.cs">
-      <DependentUpon>6Admin.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="5Appointment.aspx.cs">
-      <DependentUpon>5Appointment.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="5Appointment.aspx.designer.cs">
-      <DependentUpon>5Appointment.aspx</DependentUpon>
-    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="7About.aspx.cs">
       <DependentUpon>7About.aspx</DependentUpon>
@@ -277,6 +271,13 @@
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
+    <Compile Include="Second.Master.cs">
+      <DependentUpon>Second.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Second.Master.designer.cs">
+      <DependentUpon>Second.Master</DependentUpon>
+    </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -312,12 +313,76 @@
     <Compile Include="10profile.aspx.designer.cs">
       <DependentUpon>10profile.aspx</DependentUpon>
     </Compile>
+    <Compile Include="11profileview.aspx.cs">
+      <DependentUpon>11profileview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="11profileview.aspx.designer.cs">
+      <DependentUpon>11profileview.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="5Appointment.aspx.cs">
+      <DependentUpon>5Appointment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="5Appointment.aspx.designer.cs">
+      <DependentUpon>5Appointment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="6Admin.aspx.cs">
+      <DependentUpon>6Admin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="6Admin.aspx.designer.cs">
+      <DependentUpon>6Admin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="12Editprofile.aspx.cs">
+      <DependentUpon>12Editprofile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="12Editprofile.aspx.designer.cs">
+      <DependentUpon>12Editprofile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="13Editaddress.aspx.cs">
+      <DependentUpon>13Editaddress.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="13Editaddress.aspx.designer.cs">
+      <DependentUpon>13Editaddress.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="14EditApointment.aspx.cs">
+      <DependentUpon>14EditApointment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="14EditApointment.aspx.designer.cs">
+      <DependentUpon>14EditApointment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="15EditAdmin.aspx.cs">
+      <DependentUpon>15EditAdmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="15EditAdmin.aspx.designer.cs">
+      <DependentUpon>15EditAdmin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="16EditServiceTypes.aspx.cs">
+      <DependentUpon>16EditServiceTypes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="16EditServiceTypes.aspx.designer.cs">
+      <DependentUpon>16EditServiceTypes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="17EditDoctor.aspx.cs">
+      <DependentUpon>17EditDoctor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="17EditDoctor.aspx.designer.cs">
+      <DependentUpon>17EditDoctor.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.5.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.5.0.min.map" />
+    <Content Include="Second.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

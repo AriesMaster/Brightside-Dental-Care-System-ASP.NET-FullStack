@@ -123,6 +123,24 @@ namespace Brightside_Dental_Care_Planning
         protected global::System.Web.UI.WebControls.Button SignupButton;
 
         /// <summary>
+        /// SignupStatusLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label SignupStatusLabel;
+
+        /// <summary>
+        /// ErrorLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label ErrorLabel;
+
+        /// <summary>
         /// LoginLink control.
         /// </summary>
         /// <remarks>

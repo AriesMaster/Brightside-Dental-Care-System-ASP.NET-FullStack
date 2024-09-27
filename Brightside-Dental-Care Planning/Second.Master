@@ -1,0 +1,103 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Second.master.cs" Inherits="Brightside_Dental_Care_Planning.Site1" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - Brightside Dental Care</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <style type="text/css">
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #343a40;
+            padding: 0.75rem 1rem;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            color: #fff !important;
+            font-size: 1.5rem;
+        }
+
+        .navbar-nav .nav-link {
+            color: #ddd !important;
+            margin-left: 1rem;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #fff !important;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #343a40;
+            color: #ddd;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .body-content {
+            background-color: #fff;
+            padding: 2rem;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <form runat="server">
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" runat="server" href="~/3homepage.aspx">Brightside Dental Care</a>
+                <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <asp:Label ID="UserNameLabel" runat="server" 
+                                Text='<%# Session["UserEmail"] != null ? Session["UserEmail"].ToString() : "Guest" %>' 
+                                CssClass="nav-link"></asp:Label>
+                        </li>
+                        <li class="nav-item">
+                            <asp:HyperLink ID="LogoutLink" runat="server" NavigateUrl="~/3homepage.aspx" CssClass="nav-link">Logout</asp:HyperLink>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container body-content">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+
+        <footer>
+            <p>&copy; <%: DateTime.Now.Year %> - Brightside Dental Care</p>
+        </footer>
+    </form>
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/Scripts/bootstrap.js") %>
+    </asp:PlaceHolder>
+</body>
+</html>

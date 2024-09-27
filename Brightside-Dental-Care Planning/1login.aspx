@@ -16,20 +16,23 @@
                 
                 <asp:Label ID="UserNameLabel" runat="server" Text="Email:" AssociatedControlID="UserName" Style="display: block; margin-bottom: 10px; font-size: 1em; color: #333333;"></asp:Label>
                 <asp:TextBox ID="UserName" runat="server" Font-Size="1em" Height="34px" Placeholder="Enter your email" Style="padding: 10px; border-radius: 5px; border: 1px solid #cccccc; margin-bottom: 20px;" Width="100%"></asp:TextBox>
-                <asp:RequiredFieldValidator ID="UserNameValidator" runat="server" ControlToValidate="UserName" ErrorMessage="Email is required" ForeColor="Red" Style="margin-bottom: 10px;" />
+                <asp:RequiredFieldValidator ID="RequiredFieldValidatorUserName" runat="server" ControlToValidate="UserName" ErrorMessage="Email is required." ForeColor="Red"></asp:RequiredFieldValidator>
                 
                 <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                    <asp:CustomValidator ID="EmailValidator" runat="server" ControlToValidate="UserName" ErrorMessage="Please enter a valid email format." ForeColor="Red" 
-                        ClientValidationFunction="validateEmail" Display="Dynamic" />
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="UserName" ErrorMessage="Enter a valid email format." SetFocusOnError="True" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ForeColor="Red"></asp:RegularExpressionValidator>
                 </div>
-                
-                <asp:Label ID="PasswordLabel" runat="server" Text="Password:" AssociatedControlID="Password" Style="display: block; margin-bottom: 10px; font-size: 1em; color: #333333;"></asp:Label>
+
+                <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password" Style="display: block; margin-bottom: 10px; font-size: 1em; color: #333333;" Text="Password:"></asp:Label>
                 <asp:TextBox ID="Password" runat="server" Font-Size="1em" Height="34px" Placeholder="Enter your password" Style="padding: 10px; border-radius: 5px; border: 1px solid #cccccc; margin-bottom: 20px;" TextMode="Password" Width="100%"></asp:TextBox>
-                <asp:RequiredFieldValidator ID="PasswordValidator" runat="server" ControlToValidate="Password" ErrorMessage="Password is required" ForeColor="Red" Style="margin-bottom: 10px;" />
+                <asp:RequiredFieldValidator ID="RequiredFieldValidatorPassword" runat="server" ControlToValidate="Password" ErrorMessage="Password is required." ForeColor="Red"></asp:RequiredFieldValidator>
+
+                  <asp:Label ID="Label1" runat="server" ForeColor="Red" Style="display:none; text-align:center; margin-top: 10px;"></asp:Label>
+        <asp:Label ID="IncorrectLoginLabel" runat="server" Style="display:none; text-align:center; margin-top: 10px;"></asp:Label>
+   
 
                 <asp:Button ID="LoginButton" runat="server" BackColor="#007bff" BorderColor="#007bff" BorderStyle="Solid" BorderWidth="1px" CommandName="Login" Font-Names="Segoe UI" Font-Size="1em" ForeColor="#ffffff" Height="50px" Text="Log In" OnClick="LoginButton_Click" Style="width: 100%; border-radius: 5px; cursor: pointer; margin-bottom: 20px;" />
                 
-                <asp:Label ID="LoginErrorLabel" runat="server" ForeColor="Red" Style="display:none;"></asp:Label>
+                <asp:Label ID="LoginErrorLabel" runat="server" ForeColor="Red" Style="display:none; text-align:center; margin-top: 10px;"></asp:Label>
             </asp:Panel>
 
             <p style="text-align: center; color: #666666;">
@@ -38,14 +41,4 @@
             </p>
         </section>
     </main>
-
-    <script type="text/javascript">
-        function validateEmail(source, args) {
-            var email = args.Value;
-            var pattern = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-            args.IsValid = pattern.test(email);
-        }
-    </script>
 </asp:Content>
-
-

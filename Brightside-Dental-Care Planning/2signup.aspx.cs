@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 using System.Web.Configuration;
 
 namespace Brightside_Dental_Care_Planning
@@ -16,15 +17,28 @@ namespace Brightside_Dental_Care_Planning
             string password = Password.Text;
             string confirmPassword = ConfirmPassword.Text;
 
+            // Clear previous messages
+            SignupStatusLabel.Text = "";
+            ErrorLabel.Text = "";
+
+            // Validate fields
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(confirmPassword))
             {
-                Response.Write("All fields are required.");
+                ErrorLabel.Text = "All fields are required.";
                 return;
             }
 
+            // Check if passwords match
             if (password != confirmPassword)
             {
-                Response.Write("Passwords do not match.");
+                ErrorLabel.Text = "Passwords do not match.";
+                return;
+            }
+
+            // Password strength validation
+            if (password.Length < 6 || !Regex.IsMatch(password, @"[a-zA-Z]") || !Regex.IsMatch(password, @"[0-9]") || !Regex.IsMatch(password, @"[!@#$%^&*]"))
+            {
+                ErrorLabel.Text = "Password must be at least 6 characters long and contain letters, numbers, and special characters.";
                 return;
             }
 
@@ -32,10 +46,11 @@ namespace Brightside_Dental_Care_Planning
 
             if (string.IsNullOrEmpty(connectionString))
             {
-                Response.Write("Connection string is not configured.");
+                ErrorLabel.Text = "Connection string is not configured.";
                 return;
             }
 
+            // Insert the new user into the database
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 string query = "INSERT INTO Patient (email, password) VALUES (@Email, @Password)";
@@ -48,12 +63,11 @@ namespace Brightside_Dental_Care_Planning
                     {
                         connection.Open();
                         command.ExecuteNonQuery();
-                        //Response.Redirect("1login.aspx");
+                        SignupStatusLabel.Text = "Signup successful! You can now log in.";
                     }
                     catch (Exception ex)
                     {
-                        // Handle exception (e.g., display an error message)
-                        Response.Write("An error occurred: " + ex.Message);
+                        ErrorLabel.Text = "An error occurred: " + ex.Message;
                     }
                 }
             }

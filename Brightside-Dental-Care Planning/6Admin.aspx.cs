@@ -1,128 +1,240 @@
 ﻿using System;
 using System.Data.SqlClient;
-using System.Web.Configuration;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace Brightside_Dental_Care_Planning
 {
-    public partial class Admin : System.Web.UI.Page
+    public partial class WebForm2 : System.Web.UI.Page
     {
-        private string connectionString;
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            connectionString = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-            if (!IsPostBack)
-            {
-                LoadAdminData();
-            }
+            // Make sure the message label is hidden on page load
+            DeleteSuccessMessage.Visible = false;
+            DeleteSuccessMessageProfile.Visible = false;
+            DeleteSuccessMessageAddress.Visible = false; // New line for Address message
         }
 
-        // Load data into a GridView or other UI element
-        private void LoadAdminData()
+        // Handle the deletion of a patient record from GridView1
+        protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            string query = "SELECT Admin_Id, email, first_name, last_name FROM Admin";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                SqlCommand command = new SqlCommand(query, connection);
-                connection.Open();
-                SqlDataReader reader = command.ExecuteReader();
-                // Bind data to a GridView or similar control
-                // Example: GridView1.DataSource = reader;
-                // GridView1.DataBind();
-            }
-        }
+            // Retrieve the Patient_Id from the GridView
+            int patientId = (int)GridView1.DataKeys[e.RowIndex].Value;
 
-        protected void CreateButton_Click(object sender, EventArgs e)
-        {
-            string email = EmailTextBox.Text;
-            string password = PasswordTextBox.Text;
-            string firstName = FirstNameTextBox.Text;
-            string lastName = LastNameTextBox.Text;
+            // Create SQL delete queries for related records and the patient
+            string deleteAppointmentsQuery = "DELETE FROM Appointment WHERE Patient_Id = @PatientId";
+            string deleteProfileQuery = "DELETE FROM Profile WHERE Patient_Id = @PatientId";
+            string deleteAddressQuery = "DELETE FROM Address WHERE Patient_Id = @PatientId";
+            string deletePatientQuery = "DELETE FROM Patient WHERE Patient_Id = @PatientId";
 
-            string query = "INSERT INTO Admin (email, password, first_name, last_name) VALUES (@Email, @Password, @FirstName, @LastName)";
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["dentistdatabaseConnectionString"].ConnectionString))
             {
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@Email", email);
-                command.Parameters.AddWithValue("@Password", password);
-                command.Parameters.AddWithValue("@FirstName", firstName);
-                command.Parameters.AddWithValue("@LastName", lastName);
-                connection.Open();
-                command.ExecuteNonQuery();
-            }
-            LoadAdminData(); // Reload data to reflect changes
-        }
+                conn.Open();
 
-        protected void FetchButton_Click(object sender, EventArgs e)
-        {
-            int adminId;
-            if (int.TryParse(RecordIdTextBox.Text, out adminId))
-            {
-                string query = "SELECT email, first_name, last_name FROM Admin WHERE Admin_Id = @AdminId";
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                // Delete related appointments
+                using (SqlCommand cmd = new SqlCommand(deleteAppointmentsQuery, conn))
                 {
-                    SqlCommand command = new SqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@AdminId", adminId);
-                    connection.Open();
-                    SqlDataReader reader = command.ExecuteReader();
-                    if (reader.Read())
-                    {
-                        EmailTextBox.Text = reader["email"].ToString();
-                        FirstNameTextBox.Text = reader["first_name"].ToString();
-                        LastNameTextBox.Text = reader["last_name"].ToString();
-                        // Consider adding password handling if required
-                    }
+                    cmd.Parameters.AddWithValue("@PatientId", patientId);
+                    cmd.ExecuteNonQuery();
+                }
+
+                // Delete related profiles
+                using (SqlCommand cmd = new SqlCommand(deleteProfileQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@PatientId", patientId);
+                    cmd.ExecuteNonQuery();
+                }
+
+                // Delete related addresses
+                using (SqlCommand cmd = new SqlCommand(deleteAddressQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@PatientId", patientId);
+                    cmd.ExecuteNonQuery();
+                }
+
+                // Delete patient record
+                using (SqlCommand cmd = new SqlCommand(deletePatientQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@PatientId", patientId);
+                    cmd.ExecuteNonQuery();
+                }
+
+                conn.Close();
+            }
+
+            // Rebind the GridView to refresh the data
+            GridView1.DataBind();
+
+            // Show success message
+            DeleteSuccessMessage.Text = "You have successfully removed the patient record along with associated data.";
+            DeleteSuccessMessage.Visible = true;
+        }
+
+        // Handle the deletion of a profile record from GridView2
+        protected void GridView2_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            // Retrieve the Profile_Id from the GridView
+            int profileId = (int)GridView2.DataKeys[e.RowIndex].Value;
+
+            // Create the SQL delete query
+            string deleteQuery = "DELETE FROM Profile WHERE Profile_Id = @ProfileId";
+
+            // Execute the delete query using SqlConnection and SqlCommand
+            using (SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["dentistdatabaseConnectionString"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(deleteQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@ProfileId", profileId);
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
                 }
             }
+
+            // Rebind the GridView to refresh the data
+            GridView2.DataBind();
+
+            // Show success message for profile
+            DeleteSuccessMessageProfile.Text = "You have successfully removed the profile record.";
+            DeleteSuccessMessageProfile.Visible = true;
         }
 
-        protected void UpdateButton_Click(object sender, EventArgs e)
+        // Handle the deletion of an address record from GridView3
+        protected void GridView3_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            int adminId;
-            if (int.TryParse(RecordIdTextBox.Text, out adminId))
+            // Retrieve the Address_Id from the GridView
+            int addressId = (int)GridView3.DataKeys[e.RowIndex].Value;
+
+            // Create the SQL delete query
+            string deleteQuery = "DELETE FROM Address WHERE Address_Id = @AddressId";
+
+            // Execute the delete query using SqlConnection and SqlCommand
+            using (SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["dentistdatabaseConnectionString"].ConnectionString))
             {
-                string email = EmailTextBox.Text;
-                string firstName = FirstNameTextBox.Text;
-                string lastName = LastNameTextBox.Text;
-                // Password update logic should be handled securely; omit if unchanged
-                string query = "UPDATE Admin SET email = @Email, first_name = @FirstName, last_name = @LastName WHERE Admin_Id = @AdminId";
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlCommand cmd = new SqlCommand(deleteQuery, conn))
                 {
-                    SqlCommand command = new SqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@Email", email);
-                    command.Parameters.AddWithValue("@FirstName", firstName);
-                    command.Parameters.AddWithValue("@LastName", lastName);
-                    command.Parameters.AddWithValue("@AdminId", adminId);
-                    connection.Open();
-                    command.ExecuteNonQuery();
+                    cmd.Parameters.AddWithValue("@AddressId", addressId);
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
                 }
-                LoadAdminData(); // Reload data to reflect changes
             }
+
+            // Rebind the GridView to refresh the data
+            GridView3.DataBind();
+
+            // Show success message for address
+            DeleteSuccessMessageAddress.Text = "You have successfully removed the address record.";
+            DeleteSuccessMessageAddress.Visible = true;
         }
 
-        protected void DeleteButton_Click(object sender, EventArgs e)
+        protected void GridView4_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            int adminId;
-            if (int.TryParse(DeleteRecordIdTextBox.Text, out adminId))
+            // Retrieve the Booking_Id from the GridView
+            int bookingId = (int)GridView4.DataKeys[e.RowIndex].Value;
+
+            // Create the SQL delete query
+            string deleteQuery = "DELETE FROM Appointment WHERE Booking_Id = @BookingId";
+
+            // Execute the delete query using SqlConnection and SqlCommand
+            using (SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["dentistdatabaseConnectionString"].ConnectionString))
             {
-                string query = "DELETE FROM Admin WHERE Admin_Id = @AdminId";
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlCommand cmd = new SqlCommand(deleteQuery, conn))
                 {
-                    SqlCommand command = new SqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@AdminId", adminId);
-                    connection.Open();
-                    command.ExecuteNonQuery();
+                    cmd.Parameters.AddWithValue("@BookingId", bookingId);
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
                 }
-                LoadAdminData(); // Reload data to reflect changes
             }
+
+            // Rebind the GridView to refresh the data
+            GridView4.DataBind();
+
+            // Show success message for appointments
+            DeleteSuccessMessageAppointments.Text = "You have successfully removed the appointment record.";
+            DeleteSuccessMessageAppointments.Visible = true;
         }
 
-        protected void LogoutButton_Click(object sender, EventArgs e)
+        protected void GridView5_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            // Implement logout logic here
-            // Example: Clear session data and redirect
-            Session.Abandon();
-            Response.Redirect("1login.aspx");
+            // Retrieve the Service_Type_Id from the GridView
+            int serviceTypeId = (int)GridView5.DataKeys[e.RowIndex].Value;
+
+            // SQL delete query for the service type only
+            string deleteServiceTypeQuery = "DELETE FROM Service_Type WHERE Service_Type_Id = @ServiceTypeId";
+
+            using (SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["dentistdatabaseConnectionString"].ConnectionString))
+            {
+                conn.Open();
+
+                // Delete the service type without affecting related appointments
+                using (SqlCommand cmd = new SqlCommand(deleteServiceTypeQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@ServiceTypeId", serviceTypeId);
+                    cmd.ExecuteNonQuery();
+                }
+
+                conn.Close();
+            }
+
+            // Rebind the GridView to refresh the data
+            GridView5.DataBind();
+
+            // Show success message for Service Types
+            DeleteSuccessMessageServiceTypes.Text = "You have successfully removed the service type record.";
+            DeleteSuccessMessageServiceTypes.Visible = true;
         }
+
+
+
+        protected void GridView6_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            // Retrieve the Doctor_Id from the GridView
+            int doctorId = (int)GridView6.DataKeys[e.RowIndex].Value;
+
+            // SQL delete query for doctor record (no need to delete appointments based on Doctor_Id)
+            string deleteDoctorQuery = "DELETE FROM Doctor WHERE Doctor_Id = @DoctorId";
+
+            using (SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["dentistdatabaseConnectionString"].ConnectionString))
+            {
+                conn.Open();
+
+                // Delete the doctor record
+                using (SqlCommand cmd = new SqlCommand(deleteDoctorQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@DoctorId", doctorId);
+                    cmd.ExecuteNonQuery();
+                }
+
+                conn.Close();
+            }
+
+            // Rebind the GridView to refresh the data
+            GridView6.DataBind();
+
+            // Show success message for Doctor deletion
+            DeleteSuccessMessageDoctors.Text = "You have successfully removed the doctor record.";
+            DeleteSuccessMessageDoctors.Visible = true;
+        }
+
+        protected void GridView7_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            // Perform deletion and then show success message
+            int adminId = Convert.ToInt32(GridView7.DataKeys[e.RowIndex].Value);
+            // Code to delete the admin from the database can go here (handled by SqlDataSource)
+
+            DeleteSuccessMessageAdmins.Text = "Admin deleted successfully!";
+            DeleteSuccessMessageAdmins.Visible = true;
+
+            // Optionally, you may want to rebind the GridView to reflect changes
+            GridView7.DataBind();
+        }
+
+
+
     }
 }
