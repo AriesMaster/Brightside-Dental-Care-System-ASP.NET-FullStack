@@ -30,11 +30,11 @@ namespace Brightside_Dental_Care_Planning
             string connectionString = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
             string query = @"
-        SELECT p.first_name, p.last_name, p.phone_number, p.Date_of_Birth, p.Gender, 
-               a.Street, a.City, a.Province
-        FROM Profile p
-        LEFT JOIN Address a ON p.Patient_Id = a.Patient_Id
-        WHERE p.Patient_Id = @PatientId";
+                SELECT p.first_name, p.last_name, p.phone_number, p.Date_of_Birth, p.Gender, 
+                       a.Street, a.City, a.Province
+                FROM Profile p
+                LEFT JOIN Address a ON p.Patient_Id = a.Patient_Id
+                WHERE p.Patient_Id = @PatientId";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -60,27 +60,26 @@ namespace Brightside_Dental_Care_Planning
                             Session["FirstName"] = reader["first_name"].ToString();
                             Session["LastName"] = reader["last_name"].ToString();
 
-                            // Check for null or empty values in Street, City, and Province
+                            // Construct the address if any field is present
                             string street = reader["Street"] != DBNull.Value ? reader["Street"].ToString() : string.Empty;
                             string city = reader["City"] != DBNull.Value ? reader["City"].ToString() : string.Empty;
                             string province = reader["Province"] != DBNull.Value ? reader["Province"].ToString() : string.Empty;
 
-                            // Construct the address if any field is present, else provide a fallback message
-                            if (!string.IsNullOrEmpty(street) || !string.IsNullOrEmpty(city) || !string.IsNullOrEmpty(province))
-                            {
-                                AddressLabel.Text = $"{street}, {city}, {province}".Trim(new char[] { ',', ' ' });
-                            }
-                            else
-                            {
-                                AddressLabel.Text = "No address provided";
-                            }
+                            AddressLabel.Text = !string.IsNullOrEmpty(street) || !string.IsNullOrEmpty(city) || !string.IsNullOrEmpty(province)
+                                ? $"{street}, {city}, {province}".Trim(new char[] { ',', ' ' })
+                                : "No address provided";
 
-                            // Hide the create profile message if profile exists
+                            // Hide the create profile message and show the edit button
                             CreateProfileLabel.Visible = false;
+                            CreateProfileButton.Visible = false; // Hide Create Profile button
+                            EditProfileButton.Visible = true; // Show Edit Profile button
                         }
                         else
                         {
-                            ProfileStatusLabel.Text = "You don't yet have an account; press create account to create an account.";
+                            // If no profile exists
+                            ProfileStatusLabel.Text = "You don't yet have a profile; press create profile to create a profile.";
+                            CreateProfileButton.Visible = true; // Show Create Profile button
+                            EditProfileButton.Visible = false; // Hide Edit Profile button
                         }
                     }
                     catch (Exception ex)
@@ -91,11 +90,16 @@ namespace Brightside_Dental_Care_Planning
             }
         }
 
-
         protected void EditProfileButton_Click(object sender, EventArgs e)
         {
-            // Redirect to profile edit page (if implemented)
-            Response.Redirect("10profile.aspx");
+            // Redirect to profile edit page
+            Response.Redirect("19ProfilEdit.aspx");
+        }
+
+        protected void CreateProfileButton_Click(object sender, EventArgs e)
+        {
+            // Logic to create a new profile
+            Response.Redirect("10profile.aspx"); // Assuming you want to navigate to the profile creation page
         }
 
         protected void MakeAppointmentButton_Click(object sender, EventArgs e)

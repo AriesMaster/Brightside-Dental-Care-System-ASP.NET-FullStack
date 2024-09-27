@@ -93,25 +93,25 @@ namespace Brightside_Dental_Care_Planning
                             else
                             {
                                 // Login failed
-                                LoginErrorLabel.Text = "Invalid email or password.";
-                                LoginErrorLabel.ForeColor = System.Drawing.Color.Red;
-                                LoginErrorLabel.Visible = true;
+                                Label4.Text = "Invalid email or password.";
+                                Label4.ForeColor = System.Drawing.Color.Red;
+                                Label4.Visible = true;
                             }
                         }
                         else
                         {
                             // No user found
-                            LoginErrorLabel.Text = "Invalid email or password.";
-                            LoginErrorLabel.ForeColor = System.Drawing.Color.Red;
-                            LoginErrorLabel.Visible = true;
+                            Label4.Text = "Invalid email or password.";
+                            Label4.ForeColor = System.Drawing.Color.Red;
+                            Label4.Visible = true;
                         }
                     }
                     catch (Exception ex)
                     {
                         // Handle exception
-                        LoginErrorLabel.Text = "An error occurred: " + ex.Message;
-                        LoginErrorLabel.ForeColor = System.Drawing.Color.Red;
-                        LoginErrorLabel.Visible = true;
+                        Label4.Text = "An error occurred: " + ex.Message;
+                        Label4.ForeColor = System.Drawing.Color.Red;
+                        Label4.Visible = true;
                     }
                 }
             }

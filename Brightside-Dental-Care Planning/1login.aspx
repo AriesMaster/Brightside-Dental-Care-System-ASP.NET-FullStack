@@ -30,6 +30,9 @@
         <asp:Label ID="IncorrectLoginLabel" runat="server" Style="display:none; text-align:center; margin-top: 10px;"></asp:Label>
    
 
+                <br />
+   
+
                 <asp:Button ID="LoginButton" runat="server" BackColor="#007bff" BorderColor="#007bff" BorderStyle="Solid" BorderWidth="1px" CommandName="Login" Font-Names="Segoe UI" Font-Size="1em" ForeColor="#ffffff" Height="50px" Text="Log In" OnClick="LoginButton_Click" Style="width: 100%; border-radius: 5px; cursor: pointer; margin-bottom: 20px;" />
                 
                 <asp:Label ID="LoginErrorLabel" runat="server" ForeColor="Red" Style="display:none; text-align:center; margin-top: 10px;"></asp:Label>
@@ -38,6 +41,9 @@
             <p style="text-align: center; color: #666666;">
                 <asp:Label ID="NoAccountLabel" runat="server" Style="margin-right: 10px;">Haven't signed up yet?</asp:Label>
                 <asp:HyperLink ID="SignUpLink" runat="server" NavigateUrl="~/2signup.aspx" Style="color: #007bff; text-decoration: none;">Sign Up</asp:HyperLink>
+            </p>
+            <p style="text-align: center; color: #666666;">
+                <asp:Label ID="Label4" runat="server" Text="Label" Visible="False"></asp:Label>
             </p>
         </section>
     </main>

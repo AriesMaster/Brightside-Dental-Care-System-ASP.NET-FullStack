@@ -18,7 +18,7 @@
 
         .profile-section {
             width: 100%;
-            max-width: 400px;
+            max-width: 450px; /* Adjusted width for better appearance */
             background-color: #ffffff;
             border-radius: 10px;
             padding: 40px;
@@ -49,13 +49,13 @@
         .status-message {
             margin-top: 20px;
             font-size: 1.1em;
-            color: #dc3545;
+            color: #dc3545; /* Error message color */
             text-align: center;
         }
 
         .info-label {
             font-size: 1.1em;
-            color: #6c757d;
+            color: #6c757d; /* Info label color */
             text-align: center;
             margin-bottom: 20px;
         }
@@ -66,7 +66,7 @@
             margin-top: 20px;
             border: none;
             border-radius: 5px;
-            background-color: #007bff;
+            background-color: #007bff; /* Primary button color */
             color: white;
             font-size: 1.2em;
             cursor: pointer;
@@ -74,12 +74,16 @@
         }
 
         .profile-btn:hover {
-            background-color: #0056b3;
+            background-color: #0056b3; /* Darker shade on hover */
         }
 
         .profile-btn:focus {
             outline: none;
             box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.5);
+        }
+
+        .hidden {
+            display: none; /* Class to hide elements */
         }
     </style>
 
@@ -87,8 +91,8 @@
         <section class="profile-section">
             <h1 id="title" class="profile-title">Profile Details</h1>
 
-            <!-- New label for creating a profile -->
-            <asp:Label ID="CreateProfileLabel" runat="server" CssClass="info-label" Text="Create a profile before making an appointment"></asp:Label>
+            <!-- Label for creating a profile, initially visible if no profile exists -->
+            <asp:Label ID="CreateProfileLabel" runat="server" CssClass="info-label" Text="Create a profile before making an appointment" Visible="false"></asp:Label>
 
             <!-- Profile Details -->
             <asp:Panel ID="ProfileViewPanel" runat="server">
@@ -114,8 +118,11 @@
                 <!-- Status Message Label -->
                 <asp:Label ID="ProfileStatusLabel" runat="server" CssClass="status-message"></asp:Label>
 
-                <!-- Button to Create Profile / Edit Profile -->
-                <asp:Button ID="EditProfileButton" runat="server" Text="Create Profile" OnClick="EditProfileButton_Click" CssClass="profile-btn" />
+                <!-- Button to Edit Profile (Visible if profile exists) -->
+                <asp:Button ID="EditProfileButton" runat="server" Text="Edit Profile" OnClick="EditProfileButton_Click" CssClass="profile-btn" Visible="false" />
+
+                <!-- Button to Create Profile (Visible if no profile exists) -->
+                <asp:Button ID="CreateProfileButton" runat="server" Text="Create Profile" OnClick="CreateProfileButton_Click" CssClass="profile-btn" Visible="true" />
 
                 <!-- Make Appointment Button -->
                 <asp:Button ID="MakeAppointmentButton" runat="server" Text="Make Appointment" OnClick="MakeAppointmentButton_Click" CssClass="profile-btn" />

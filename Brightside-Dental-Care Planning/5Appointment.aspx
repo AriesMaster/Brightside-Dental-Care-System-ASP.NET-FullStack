@@ -1,73 +1,95 @@
 ﻿<%@ Page Title="Appointment" Language="C#" MasterPageFile="~/Second.Master" AutoEventWireup="true" CodeBehind="5Appointment.aspx.cs" Inherits="Brightside_Dental_Care_Planning.WebForm8" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background-color: #f9f9f9; /* A lighter background for the entire page */
+        }
+
         .appointment-main {
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
             padding: 40px;
-            background-color: #f4f4f4;
             height: 100vh;
         }
 
         .appointment-section {
             width: 100%;
-            max-width: 400px;
+            max-width: 450px; /* Slightly wider for modern design */
             background-color: #ffffff;
             border-radius: 10px;
             padding: 40px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Enhanced shadow for a more modern look */
+            transition: box-shadow 0.3s ease; /* Smooth transition effect */
+        }
+
+        .appointment-section:hover {
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15); /* Hover effect for interaction */
         }
 
         .appointment-title {
-            font-family: 'Segoe UI', Tahoma, sans-serif;
             color: #333333;
             margin-bottom: 20px;
             font-size: 2.5em;
             text-align: center;
+            font-weight: bold; /* Bold for emphasis */
         }
 
         .appointment-label {
             display: block;
             margin-bottom: 10px;
             font-size: 1em;
-            color: #333333;
+            color: #555555; /* Slightly lighter color for labels */
         }
 
         .input-text {
             width: 100%;
-            height: 34px;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #cccccc;
-            margin-bottom: 10px;
+            height: 40px;
+            padding: 12px; /* Increased padding for better usability */
+            border-radius: 8px; /* More rounded corners for modern look */
+            border: 1px solid #dddddd; /* Light border for subtlety */
+            margin-bottom: 20px; /* Increased space between inputs */
             font-size: 1em;
+            transition: border 0.3s ease; /* Transition for border on focus */
+        }
+
+        .input-text:focus {
+            border-color: #28a745; /* Change border color on focus */
+            outline: none; /* Remove default outline */
         }
 
         .appointment-btn {
             width: 100%;
             height: 50px;
-            background-color: #28a745;
+            background-color: #28a745; /* Primary action color */
             color: #ffffff;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px; /* Rounded button for modern look */
             cursor: pointer;
             font-size: 1em;
-            margin-top: 10px;
+            transition: background-color 0.3s ease; /* Smooth transition */
+        }
+
+        .appointment-btn:hover {
+            background-color: #218838; /* Darker shade on hover */
         }
 
         .status-message {
             display: block;
             margin-top: 20px;
             font-size: 1.1em;
-            color: green;
+            color: #28a745; /* Color for success messages */
+            text-align: center; /* Center alignment */
         }
 
         .error-message {
             display: block;
             margin-top: 10px;
-            color: red;
+            color: #dc3545; /* Bootstrap danger color for errors */
+            text-align: center; /* Center alignment */
         }
     </style>
 

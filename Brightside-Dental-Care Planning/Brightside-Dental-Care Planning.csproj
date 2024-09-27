@@ -190,6 +190,7 @@
     <Content Include="17EditDoctor.aspx" />
     <Content Include="9Doctor.aspx" />
     <Content Include="18EditDoctor.aspx" />
+    <Content Include="19ProfilEdit.aspx" />
     <None Include="Scripts\jquery-3.5.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.0.js" />
     <Content Include="Scripts\jquery-3.5.0.min.js" />
@@ -383,6 +384,13 @@
     </Compile>
     <Compile Include="18EditDoctor.aspx.designer.cs">
       <DependentUpon>18EditDoctor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="19ProfilEdit.aspx.cs">
+      <DependentUpon>19ProfilEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="19ProfilEdit.aspx.designer.cs">
+      <DependentUpon>19ProfilEdit.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup />
