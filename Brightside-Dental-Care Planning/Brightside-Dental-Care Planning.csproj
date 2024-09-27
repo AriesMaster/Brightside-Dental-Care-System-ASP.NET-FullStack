@@ -133,7 +133,6 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="3homepage.aspx" />
-    <Content Include="9Doctor.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="pictures\braces.jpg" />
@@ -189,6 +188,8 @@
     <Content Include="15EditAdmin.aspx" />
     <Content Include="16EditServiceTypes.aspx" />
     <Content Include="17EditDoctor.aspx" />
+    <Content Include="9Doctor.aspx" />
+    <Content Include="18EditDoctor.aspx" />
     <None Include="Scripts\jquery-3.5.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.0.js" />
     <Content Include="Scripts\jquery-3.5.0.min.js" />
@@ -245,13 +246,6 @@
     </Compile>
     <Compile Include="3homepage.aspx.designer.cs">
       <DependentUpon>3homepage.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="9Doctor.aspx.cs">
-      <DependentUpon>9Doctor.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="9Doctor.aspx.designer.cs">
-      <DependentUpon>9Doctor.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -375,6 +369,20 @@
     </Compile>
     <Compile Include="17EditDoctor.aspx.designer.cs">
       <DependentUpon>17EditDoctor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="9Doctor.aspx.cs">
+      <DependentUpon>9Doctor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="9Doctor.aspx.designer.cs">
+      <DependentUpon>9Doctor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="18EditDoctor.aspx.cs">
+      <DependentUpon>18EditDoctor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="18EditDoctor.aspx.designer.cs">
+      <DependentUpon>18EditDoctor.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup />
