@@ -232,8 +232,8 @@
 </asp:SqlDataSource>
 
             </td>
-            <td rowspan="4">&nbsp;</td>
-            <td rowspan="4">&nbsp;</td>
+            <td rowspan="8">&nbsp;</td>
+            <td rowspan="8">&nbsp;</td>
         </tr>
         <tr>
             <td>
@@ -275,7 +275,27 @@
             </td>
         </tr>
         <tr>
+            <td style="height: 25px"></td>
+        </tr>
+        <tr>
             <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td style="height: 30px">
+                <asp:Button ID="Button1" runat="server" Text="Request reports" />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:Button ID="Button2" runat="server" Text="Add Doctor" />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:Button ID="Button3" runat="server" Text="Add Admin" />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:Button ID="Button4" runat="server" Text="Add Service Types" />
+            </td>
         </tr>
         <tr>
             <td>&nbsp;</td>
