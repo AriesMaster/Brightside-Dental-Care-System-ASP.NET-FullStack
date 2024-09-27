@@ -112,7 +112,7 @@
                 <asp:TextBox ID="AppointmentDate" runat="server" TextMode="Date" CssClass="input-text"></asp:TextBox>
 
                 <!-- Additional Information Field -->
-                <asp:Label ID="AdditionalInfoLabel" runat="server" Text="Additional Information:" AssociatedControlID="AdditionalInfo" CssClass="appointment-label"></asp:Label>
+                <asp:Label ID="AdditionalInfoLabel" runat="server" Text="Additional Information(Optional) :" AssociatedControlID="AdditionalInfo" CssClass="appointment-label"></asp:Label>
                 <asp:TextBox ID="AdditionalInfo" runat="server" CssClass="input-text"></asp:TextBox>
 
                 <!-- Make Appointment Button -->

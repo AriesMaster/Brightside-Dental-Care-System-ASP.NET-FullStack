@@ -73,8 +73,8 @@ namespace Brightside_Dental_Care_Planning
         private bool SaveAppointment(int patientId, string serviceType, DateTime bookingDate, string additionalInfo, string firstName, string lastName)
         {
             string connectionString = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-            string query = @"INSERT INTO Appointment (Patient_Id, Service_Type_Id, Booking_Date, Additional_Info, Service_name, Patient_FirstName, Patient_LastName)
-                     VALUES (@PatientId, @ServiceTypeId, @BookingDate, @AdditionalInfo, @ServiceName, @FirstName, @LastName)";
+            string query = @"INSERT INTO Appointment (Patient_Id, Service_Type_Id, Booking_Date, Additional_Info, Service_name, Patient_FirstName, Patient_LastName, Price)
+                     VALUES (@PatientId, @ServiceTypeId, @BookingDate, @AdditionalInfo, @ServiceName, @FirstName, @LastName, @Price)";
 
             try
             {
@@ -85,12 +85,17 @@ namespace Brightside_Dental_Care_Planning
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@PatientId", patientId);
-                        command.Parameters.AddWithValue("@ServiceTypeId", GetServiceTypeId(serviceType));
+                        int serviceTypeId = GetServiceTypeId(serviceType);
+                        command.Parameters.AddWithValue("@ServiceTypeId", serviceTypeId);
+
+                        decimal price = GetServicePrice(serviceTypeId);
+                        command.Parameters.AddWithValue("@Price", price);
+
                         command.Parameters.AddWithValue("@BookingDate", bookingDate);
                         command.Parameters.AddWithValue("@AdditionalInfo", additionalInfo);
                         command.Parameters.AddWithValue("@ServiceName", serviceType);
-                        command.Parameters.AddWithValue("@FirstName", firstName); // Use retrieved first name
-                        command.Parameters.AddWithValue("@LastName", lastName); // Use retrieved last name
+                        command.Parameters.AddWithValue("@FirstName", firstName);
+                        command.Parameters.AddWithValue("@LastName", lastName);
 
                         command.ExecuteNonQuery();
                     }
@@ -100,18 +105,47 @@ namespace Brightside_Dental_Care_Planning
             }
             catch (Exception ex)
             {
-                // Log the error
                 Console.WriteLine(ex.Message);
                 return false;
             }
         }
 
-
         private int GetServiceTypeId(string serviceName)
         {
-            // Here you would typically query the database to get the Service_Type_Id based on the serviceName.
-            // For the sake of this example, we'll return dummy IDs.
-            return serviceName == "Consultation" ? 1 : 2; // Assuming 1 is for Consultation and 2 is for Cleaning
+            string connectionString = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            string query = "SELECT Service_Type_Id FROM Service_Type WHERE Service_name = @ServiceName";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@ServiceName", serviceName);
+
+                    object result = command.ExecuteScalar();
+                    return result != null ? (int)result : 0;
+                }
+            }
+        }
+
+        private decimal GetServicePrice(int serviceTypeId)
+        {
+            string connectionString = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            string query = "SELECT Price FROM Service_Type WHERE Service_Type_Id = @ServiceTypeId";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@ServiceTypeId", serviceTypeId);
+
+                    object result = command.ExecuteScalar();
+                    return result != null ? (decimal)result : 0.0m;
+                }
+            }
         }
 
         protected void ServiceType_SelectedIndexChanged(object sender, EventArgs e)

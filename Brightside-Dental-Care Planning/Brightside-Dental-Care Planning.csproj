@@ -182,12 +182,6 @@
     <Content Include="11profileview.aspx" />
     <Content Include="5Appointment.aspx" />
     <Content Include="6Admin.aspx" />
-    <Content Include="12Editprofile.aspx" />
-    <Content Include="13Editaddress.aspx" />
-    <Content Include="14EditApointment.aspx" />
-    <Content Include="15EditAdmin.aspx" />
-    <Content Include="16EditServiceTypes.aspx" />
-    <Content Include="17EditDoctor.aspx" />
     <Content Include="9Doctor.aspx" />
     <Content Include="18EditDoctor.aspx" />
     <Content Include="19ProfilEdit.aspx" />
@@ -329,48 +323,6 @@
     </Compile>
     <Compile Include="6Admin.aspx.designer.cs">
       <DependentUpon>6Admin.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="12Editprofile.aspx.cs">
-      <DependentUpon>12Editprofile.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="12Editprofile.aspx.designer.cs">
-      <DependentUpon>12Editprofile.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="13Editaddress.aspx.cs">
-      <DependentUpon>13Editaddress.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="13Editaddress.aspx.designer.cs">
-      <DependentUpon>13Editaddress.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="14EditApointment.aspx.cs">
-      <DependentUpon>14EditApointment.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="14EditApointment.aspx.designer.cs">
-      <DependentUpon>14EditApointment.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="15EditAdmin.aspx.cs">
-      <DependentUpon>15EditAdmin.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="15EditAdmin.aspx.designer.cs">
-      <DependentUpon>15EditAdmin.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="16EditServiceTypes.aspx.cs">
-      <DependentUpon>16EditServiceTypes.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="16EditServiceTypes.aspx.designer.cs">
-      <DependentUpon>16EditServiceTypes.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="17EditDoctor.aspx.cs">
-      <DependentUpon>17EditDoctor.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="17EditDoctor.aspx.designer.cs">
-      <DependentUpon>17EditDoctor.aspx</DependentUpon>
     </Compile>
     <Compile Include="9Doctor.aspx.cs">
       <DependentUpon>9Doctor.aspx</DependentUpon>

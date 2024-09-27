@@ -104,16 +104,15 @@
 
         <section class="appointments-section">
             <h2 class="section-title">List of Appointments</h2>
-            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="Booking_Id" DataSourceID="SqlDataSource1" CssClass="grid-view">
+            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1" CssClass="grid-view">
                 <Columns>
-                    <asp:BoundField DataField="Booking_Id" HeaderText="Booking ID" InsertVisible="False" ReadOnly="True" SortExpression="Booking_Id" />
-                    <asp:BoundField DataField="Patient_Id" HeaderText="Patient ID" SortExpression="Patient_Id" />
-                    <asp:BoundField DataField="Service_Type_Id" HeaderText="Service Type" SortExpression="Service_Type_Id" />
-                    <asp:BoundField DataField="Booking_Date" HeaderText="Booking Date" SortExpression="Booking_Date" />
-                    <asp:BoundField DataField="Additional_Info" HeaderText="Additional Info" SortExpression="Additional_Info" />
+                    <asp:BoundField DataField="AppointmentStatus" HeaderText="AppointmentStatus" InsertVisible="False" ReadOnly="True" SortExpression="AppointmentStatus" />
+                    <asp:BoundField DataField="Patient_LastName" HeaderText="Patient_LastName" SortExpression="Patient_LastName" />
+                    <asp:BoundField DataField="Patient_FirstName" HeaderText="Patient_FirstName" SortExpression="Patient_FirstName" />
                     <asp:BoundField DataField="Service_name" HeaderText="Service Name" SortExpression="Service_name" />
-                    <asp:BoundField DataField="Patient_FirstName" HeaderText="Patient First Name" SortExpression="Patient_FirstName" />
-                    <asp:BoundField DataField="Patient_LastName" HeaderText="Patient Last Name" SortExpression="Patient_LastName" />
+                    <asp:BoundField DataField="Additional_Info" HeaderText="Additional Info" SortExpression="Additional_Info" />
+                    <asp:BoundField DataField="Booking_Date" HeaderText="Booking_Date" SortExpression="Booking_Date" />
+                    <asp:BoundField DataField="Price" HeaderText="Price" SortExpression="Price" />
                 </Columns>
                 <FooterStyle CssClass="footer-style" />
                 <HeaderStyle CssClass="header-style" />
@@ -128,7 +127,7 @@
 
             <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
                 ConnectionString="<%$ ConnectionStrings:dentistdatabaseConnectionString %>" 
-                SelectCommand="SELECT * FROM [Appointment]">
+                SelectCommand="SELECT [AppointmentStatus], [Patient_LastName], [Patient_FirstName], [Service_name], [Additional_Info], [Booking_Date], [Price] FROM [Appointment]">
             </asp:SqlDataSource>
         </section>
 
@@ -136,11 +135,10 @@
             <h2 class="section-title">Doctor Profile</h2>
             <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" DataKeyNames="Doctor_Id" DataSourceID="SqlDataSource2" CssClass="grid-view">
                 <Columns>
-                    <asp:BoundField DataField="Doctor_Id" HeaderText="Doctor ID" InsertVisible="False" ReadOnly="True" SortExpression="Doctor_Id" />
-                    <asp:BoundField DataField="email" HeaderText="Email" SortExpression="email" />
-                    <asp:BoundField DataField="password" HeaderText="Password" SortExpression="password" />
-                    <asp:BoundField DataField="first_name" HeaderText="First Name" SortExpression="first_name" />
-                    <asp:BoundField DataField="last_name" HeaderText="Last Name" SortExpression="last_name" />
+                    <asp:BoundField DataField="Doctor_Id" HeaderText="Doctor_Id" InsertVisible="False" ReadOnly="True" SortExpression="Doctor_Id" />
+                    <asp:BoundField DataField="last_name" HeaderText="last_name" SortExpression="last_name" />
+                    <asp:BoundField DataField="first_name" HeaderText="first_name" SortExpression="first_name" />
+                    <asp:BoundField DataField="email" HeaderText="email" SortExpression="email" />
                 </Columns>
                 <FooterStyle CssClass="footer-style" />
                 <HeaderStyle CssClass="header-style" />
@@ -155,7 +153,7 @@
 
             <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
                 ConnectionString="<%$ ConnectionStrings:dentistdatabaseConnectionString %>" 
-                SelectCommand="SELECT * FROM [Doctor] WHERE ([email] = @email)">
+                SelectCommand="SELECT [Doctor_Id], [last_name], [first_name], [email] FROM [Doctor] WHERE ([email] = @email)">
                 <SelectParameters>
                     <asp:SessionParameter Name="email" SessionField="UserName" Type="String" />
                 </SelectParameters>

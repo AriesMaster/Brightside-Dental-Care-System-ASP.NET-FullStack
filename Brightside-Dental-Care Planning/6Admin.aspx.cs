@@ -11,11 +11,8 @@ namespace Brightside_Dental_Care_Planning
         {
             // Make sure the message label is hidden on page load
             DeleteSuccessMessage.Visible = false;
-            DeleteSuccessMessageProfile.Visible = false;
-            DeleteSuccessMessageAddress.Visible = false; // New line for Address message
         }
 
-        // Handle the deletion of a patient record from GridView1
         protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             // Retrieve the Patient_Id from the GridView
@@ -69,6 +66,82 @@ namespace Brightside_Dental_Care_Planning
             DeleteSuccessMessage.Text = "You have successfully removed the patient record along with associated data.";
             DeleteSuccessMessage.Visible = true;
         }
+
+        protected void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            // Set the row index to be edited
+            GridView1.EditIndex = e.NewEditIndex;
+
+            // Rebind the data to the GridView to reflect the edit mode
+            GridView1.DataBind();
+        }
+
+        protected void GridView1_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        {
+            // Reset the edit index to -1 to cancel edit mode
+            GridView1.EditIndex = -1;
+
+            // Rebind the data to the GridView
+            GridView1.DataBind();
+        }
+
+        protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+            try
+            {
+                // Retrieve the Patient_Id from the GridView
+                int patientId = (int)GridView1.DataKeys[e.RowIndex].Value;
+
+                // Get the new values from the GridView
+                string email = ((TextBox)GridView1.Rows[e.RowIndex].FindControl("TextBoxEmail")).Text;
+                string password = ((TextBox)GridView1.Rows[e.RowIndex].FindControl("TextBoxPassword")).Text;
+
+                // Validate email and password
+                if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
+                {
+                    throw new Exception("Email and password cannot be empty.");
+                }
+
+                // Create SQL update query
+                string updateQuery = "UPDATE Patient SET email = @Email, password = @Password WHERE Patient_Id = @PatientId";
+
+                using (SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["dentistdatabaseConnectionString"].ConnectionString))
+                {
+                    conn.Open();
+
+                    // Update the patient record
+                    using (SqlCommand cmd = new SqlCommand(updateQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Email", email);
+                        cmd.Parameters.AddWithValue("@Password", password);
+                        cmd.Parameters.AddWithValue("@PatientId", patientId);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                // Optionally show success message in session or similar for the admin page
+                Session["SuccessMessage"] = "Patient record updated successfully.";
+
+                // Redirect to the admin page after update
+                Response.Redirect("6Admin.aspx"); // Update this with your actual admin page URL
+            }
+            catch (SqlException sqlEx)
+            {
+                // Log and show SQL exception details
+                DeleteSuccessMessage.Text = "SQL Error: " + sqlEx.Message;
+                DeleteSuccessMessage.Visible = true;
+            }
+            catch (Exception ex)
+            {
+                // Log and show generic exception details
+                DeleteSuccessMessage.Text = "Error: " + ex.Message;
+                DeleteSuccessMessage.Visible = true;
+            }
+        }
+
+
+
+
 
         // Handle the deletion of a profile record from GridView2
         protected void GridView2_RowDeleting(object sender, GridViewDeleteEventArgs e)
@@ -223,18 +296,38 @@ namespace Brightside_Dental_Care_Planning
 
         protected void GridView7_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            // Perform deletion and then show success message
-            int adminId = Convert.ToInt32(GridView7.DataKeys[e.RowIndex].Value);
-            // Code to delete the admin from the database can go here (handled by SqlDataSource)
+            // Retrieve the Admin_Id from the GridView
+            int adminId = (int)GridView7.DataKeys[e.RowIndex].Value;
 
-            DeleteSuccessMessageAdmins.Text = "Admin deleted successfully!";
-            DeleteSuccessMessageAdmins.Visible = true;
+            // SQL delete query for the admin record
+            string deleteAdminQuery = "DELETE FROM Admin WHERE Admin_Id = @AdminId";
 
-            // Optionally, you may want to rebind the GridView to reflect changes
+            using (SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["dentistdatabaseConnectionString"].ConnectionString))
+            {
+                conn.Open();
+
+                // Delete the admin record
+                using (SqlCommand cmd = new SqlCommand(deleteAdminQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@AdminId", adminId);
+                    cmd.ExecuteNonQuery();
+                }
+
+                conn.Close();
+            }
+
+            // Rebind the GridView to refresh the data
             GridView7.DataBind();
+
+            // Show success message for admin deletion
+            DeleteSuccessMessageAdmins.Text = "You have successfully removed the admin record.";
+            DeleteSuccessMessageAdmins.Visible = true;
         }
 
-
-
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("20requestReports.aspx");
+            
+        }
     }
 }

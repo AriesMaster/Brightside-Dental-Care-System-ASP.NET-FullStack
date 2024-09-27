@@ -1,50 +1,144 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Second.Master" AutoEventWireup="true" CodeBehind="6Admin.aspx.cs" Inherits="Brightside_Dental_Care_Planning.WebForm2" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <table style="width: 100%; height: 661px;">
-        <tr>
-            <td style="text-align: center">
-                <asp:Label ID="Label1" runat="server" Text="Admin DashBoard"></asp:Label>
-            </td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td>
-                <asp:Label ID="Label2" runat="server" Text="Patients"></asp:Label>
-                <!-- Label for showing success message -->
-                <asp:Label ID="DeleteSuccessMessage" runat="server" Text="" ForeColor="Green" Visible="False"></asp:Label>
+      <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
 
-                <asp:GridView ID="GridView1" runat="server" AllowSorting="True" AutoGenerateColumns="False" BackColor="White" 
-                    BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataKeyNames="Patient_Id" 
-                    DataSourceID="SqlDataSource1" OnRowDeleting="GridView1_RowDeleting">
-                    <Columns>
-                        <asp:BoundField DataField="Patient_Id" HeaderText="Patient_Id" InsertVisible="False" ReadOnly="True" SortExpression="Patient_Id" />
-                        <asp:BoundField DataField="email" HeaderText="email" SortExpression="email" />
-                        <asp:BoundField DataField="password" HeaderText="password" SortExpression="password" />
-                        <asp:CommandField ShowDeleteButton="True" />
-                    </Columns>
-                    <FooterStyle BackColor="White" ForeColor="#000066" />
-                    <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
-                    <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />
-                    <RowStyle ForeColor="#000066" />
-                    <SelectedRowStyle BackColor="#669999" Font-Bold="True" ForeColor="White" />
-                    <SortedAscendingCellStyle BackColor="#F1F1F1" />
-                    <SortedAscendingHeaderStyle BackColor="#007DBB" />
-                    <SortedDescendingCellStyle BackColor="#CAC9C9" />
-                    <SortedDescendingHeaderStyle BackColor="#00547E" />
-                </asp:GridView>
-                <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:dentistdatabaseConnectionString %>" SelectCommand="SELECT * FROM [Patient]" DeleteCommand="DELETE FROM [Patient] WHERE [Patient_Id] = @Patient_Id">
-                    <DeleteParameters>
-                        <asp:Parameter Name="Patient_Id" Type="Int32" />
-                    </DeleteParameters>
-                </asp:SqlDataSource>
-            </td>
-            <td rowspan="5">&nbsp;</td>
+        h1 {
+            color: #006699;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .styled-button {
+            background-color: #006699; /* Blue background */
+            color: white; /* White text */
+            border: none; /* No border */
+            border-radius: 5px; /* Rounded corners */
+            padding: 10px 20px; /* Padding */
+            font-size: 16px; /* Font size */
+            cursor: pointer; /* Pointer cursor on hover */
+            transition: background-color 0.3s; /* Transition effect */
+            margin: 5px; /* Margin for spacing */
+        }
+
+        .styled-button:hover {
+            background-color: #004d66; /* Darker blue on hover */
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #006699;
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f1f1f1; /* Alternate row colors */
+        }
+
+        tr:hover {
+            background-color: #e9e9e9; /* Highlight on hover */
+        }
+
+        .success-message {
+            color: green;
+            margin-top: 10px;
+        }
+
+        /* Labels */
+        label {
+            font-weight: bold;
+            color: #006699;
+            display: block;
+            margin: 10px 0 5px; /* Spacing for labels */
+        }
+          .auto-style1 {
+              text-align: center;
+          }
+          .auto-style2 {
+              font-size: large;
+          }
+    </style>
+
+    <h1>Admin Dashboard</h1>
+
+    <table>
+        <tr>
+            <td class="auto-style1">
+                <strong>
+    <asp:Label ID="Label2" runat="server" Text="Patients" CssClass="auto-style2"></asp:Label>
+                </strong>
+    <asp:Label ID="DeleteSuccessMessage" runat="server" Text="" ForeColor="Green" Visible="False"></asp:Label>
+
+    <asp:GridView ID="GridView1" runat="server" AllowSorting="True" AutoGenerateColumns="False" BackColor="White" 
+        BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataKeyNames="Patient_Id" 
+        DataSourceID="SqlDataSource1" OnRowDeleting="GridView1_RowDeleting" 
+        OnRowEditing="GridView1_RowEditing" OnRowCancelingEdit="GridView1_RowCancelingEdit" 
+        OnRowUpdating="GridView1_RowUpdating">
+        <Columns>
+            <asp:BoundField DataField="Patient_Id" HeaderText="Patient_Id" InsertVisible="False" ReadOnly="True" SortExpression="Patient_Id" />
+            <asp:TemplateField HeaderText="Email">
+                <ItemTemplate>
+                    <asp:Label ID="LabelEmail" runat="server" Text='<%# Bind("email") %>'></asp:Label>
+                </ItemTemplate>
+                <EditItemTemplate>
+                    <asp:TextBox ID="TextBoxEmail" runat="server" Text='<%# Bind("email") %>'></asp:TextBox>
+                </EditItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="Password">
+                <ItemTemplate>
+                    <asp:Label ID="LabelPassword" runat="server" Text='<%# Bind("password") %>'></asp:Label>
+                </ItemTemplate>
+                <EditItemTemplate>
+                    <asp:TextBox ID="TextBoxPassword" runat="server" Text='<%# Bind("password") %>' TextMode="Password"></asp:TextBox>
+                </EditItemTemplate>
+            </asp:TemplateField>
+            <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" />
+        </Columns>
+        <FooterStyle BackColor="White" ForeColor="#000066" />
+        <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
+        <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />
+        <RowStyle ForeColor="#000066" />
+        <SelectedRowStyle BackColor="#669999" Font-Bold="True" ForeColor="White" />
+        <SortedAscendingCellStyle BackColor="#F1F1F1" />
+        <SortedAscendingHeaderStyle BackColor="#007DBB" />
+        <SortedDescendingCellStyle BackColor="#CAC9C9" />
+        <SortedDescendingHeaderStyle BackColor="#00547E" />
+    </asp:GridView>
+
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:dentistdatabaseConnectionString %>" 
+        SelectCommand="SELECT * FROM [Patient]" DeleteCommand="DELETE FROM [Patient] WHERE [Patient_Id] = @Patient_Id">
+        <DeleteParameters>
+            <asp:Parameter Name="Patient_Id" Type="Int32" />
+        </DeleteParameters>
+    </asp:SqlDataSource>
+</td>
+
             <td rowspan="5">&nbsp;</td>
         </tr>
         <tr>
-            <td>
-                <asp:Label ID="Label3" runat="server" Text="Profiles"></asp:Label>
+            <td class="auto-style1">
+                <strong>
+                <asp:Label ID="Label3" runat="server" Text="Profiles" CssClass="auto-style2"></asp:Label>
+                </strong>
                 <!-- Label for showing success message for profiles -->
                 <asp:Label ID="DeleteSuccessMessageProfile" runat="server" Text="" ForeColor="Green" Visible="False"></asp:Label>
 
@@ -79,8 +173,10 @@
             </td>
         </tr>
         <tr>
-            <td>
-                <asp:Label ID="Label4" runat="server" Text="Addresses"></asp:Label>
+            <td class="auto-style1">
+                <strong>
+                <asp:Label ID="Label4" runat="server" Text="Addresses" CssClass="auto-style2"></asp:Label>
+                </strong>
                 <asp:Label ID="DeleteSuccessMessageAddress" runat="server" Text="" ForeColor="Green" Visible="False"></asp:Label>
 
                 <asp:GridView ID="GridView3" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataKeyNames="Address_Id" DataSourceID="SqlDataSource3" OnRowDeleting="GridView3_RowDeleting">
@@ -110,8 +206,10 @@
             </td>
         </tr>
         <tr>
-            <td>
-               <asp:Label ID="Label5" runat="server" Text="Appointments"></asp:Label>
+            <td class="auto-style1">
+                <strong>
+               <asp:Label ID="Label5" runat="server" Text="Appointments" CssClass="auto-style2"></asp:Label>
+                </strong>
 <!-- Label for showing success message for appointments -->
 <asp:Label ID="DeleteSuccessMessageAppointments" runat="server" Text="" ForeColor="Green" Visible="False"></asp:Label>
 
@@ -154,8 +252,10 @@
                     </td>
         </tr>
         <tr>
-            <td style="height: 25px">
-               <asp:Label ID="Label6" runat="server" Text="Service Types"></asp:Label>
+            <td style="height: 25px" class="auto-style1">
+                <strong>
+               <asp:Label ID="Label6" runat="server" Text="Service Types" CssClass="auto-style2"></asp:Label>
+                </strong>
 <!-- Label for showing success message for Service Types -->
 <asp:Label ID="DeleteSuccessMessageServiceTypes" runat="server" ForeColor="Green" Visible="False"></asp:Label>
 
@@ -193,8 +293,11 @@
             </td>
         </tr>
         <tr>
-            <td>
-               <asp:Label ID="Label7" runat="server" Text="Doctors"></asp:Label>
+            <td class="auto-style1">
+                <strong>
+               <asp:Label ID="Label7" runat="server" Text="Doctors" CssClass="auto-style2"></asp:Label>
+
+                </strong>
 
 <!-- Label for showing success message for deleting a doctor -->
 <asp:Label ID="DeleteSuccessMessageDoctors" runat="server" Text="" ForeColor="Green" Visible="False"></asp:Label>
@@ -233,11 +336,13 @@
 
             </td>
             <td rowspan="8">&nbsp;</td>
-            <td rowspan="8">&nbsp;</td>
         </tr>
         <tr>
-            <td>
-               <asp:Label ID="LabelAdmins" runat="server" Text="Admins"></asp:Label>
+            <td class="auto-style1">
+                <strong>
+               <asp:Label ID="LabelAdmins" runat="server" Text="Admins" CssClass="auto-style2"></asp:Label>
+
+                </strong>
 
 <asp:Label ID="DeleteSuccessMessageAdmins" runat="server" ForeColor="Green" Visible="False"></asp:Label>
 
@@ -288,13 +393,13 @@
         </tr>
         <tr>
             <td style="height: 30px">
-                <asp:Button ID="Button1" runat="server" Text="Request reports" />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <asp:Button ID="Button2" runat="server" Text="Add Doctor" />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <asp:Button ID="Button3" runat="server" Text="Add Admin" />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <asp:Button ID="Button4" runat="server" Text="Add Service Types" />
+                <asp:Button ID="Button1" runat="server" CssClass="styled-button" Text="Request reports" OnClick="Button1_Click" />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:Button ID="Button2" runat="server" CssClass="styled-button" Text="Add Doctor" />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:Button ID="Button3" runat="server" CssClass="styled-button" Text="Add Admin" />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:Button ID="Button4" runat="server" CssClass="styled-button" Text="Add Service Types" />
             </td>
         </tr>
         <tr>
