@@ -11,7 +11,7 @@
         .dashboard-container {
             padding: 20px;
             font-family: Arial, sans-serif;
-            background-color: #F9F9F9; /* Light background for better readability */
+            background-color: #F9F9F9;
         }
 
         .dashboard-title {
@@ -104,15 +104,38 @@
 
         <section class="appointments-section">
             <h2 class="section-title">List of Appointments</h2>
-            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1" CssClass="grid-view">
+            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
+                DataSourceID="SqlDataSource1" CssClass="grid-view" 
+                DataKeyNames="Booking_Id" 
+                OnRowEditing="GridView1_RowEditing" 
+                OnRowUpdating="GridView1_RowUpdating" 
+                OnRowCancelingEdit="GridView1_RowCancelingEdit">
                 <Columns>
-                    <asp:BoundField DataField="AppointmentStatus" HeaderText="AppointmentStatus" InsertVisible="False" ReadOnly="True" SortExpression="AppointmentStatus" />
-                    <asp:BoundField DataField="Patient_LastName" HeaderText="Patient_LastName" SortExpression="Patient_LastName" />
-                    <asp:BoundField DataField="Patient_FirstName" HeaderText="Patient_FirstName" SortExpression="Patient_FirstName" />
-                    <asp:BoundField DataField="Service_name" HeaderText="Service Name" SortExpression="Service_name" />
-                    <asp:BoundField DataField="Additional_Info" HeaderText="Additional Info" SortExpression="Additional_Info" />
-                    <asp:BoundField DataField="Booking_Date" HeaderText="Booking_Date" SortExpression="Booking_Date" />
-                    <asp:BoundField DataField="Price" HeaderText="Price" SortExpression="Price" />
+
+                    
+                    <asp:TemplateField HeaderText="Update Appointment Status">
+                        <EditItemTemplate>
+                            <asp:DropDownList ID="ddlAppointmentStatus" runat="server" SelectedValue='<%# Bind("AppointmentStatus") %>'>
+                                <asp:ListItem Text="Pending" Value="Pending"></asp:ListItem>
+                                <asp:ListItem Text="Completed" Value="Completed"></asp:ListItem>
+                                <asp:ListItem Text="Cancelled" Value="Cancelled"></asp:ListItem>
+                            </asp:DropDownList>
+                        </EditItemTemplate>
+                        <ItemTemplate>
+                            <asp:Label ID="lblAppointmentStatus" runat="server" Text='<%# Eval("AppointmentStatus") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
+                    
+                    <asp:BoundField DataField="Patient_LastName" HeaderText="Patient Last Name" SortExpression="Patient_LastName" ReadOnly="True" />
+                    <asp:BoundField DataField="Patient_FirstName" HeaderText="Patient First Name" SortExpression="Patient_FirstName" ReadOnly="True" />
+                    <asp:BoundField DataField="Service_name" HeaderText="Service Name" SortExpression="Service_name" ReadOnly="True" />
+                    <asp:BoundField DataField="Additional_Info" HeaderText="Additional Info" SortExpression="Additional_Info" ReadOnly="True" />
+                    <asp:BoundField DataField="Booking_Date" HeaderText="Booking Date" SortExpression="Booking_Date" ReadOnly="True" />
+                    <asp:BoundField DataField="Price" HeaderText="Price" SortExpression="Price" ReadOnly="True" />
+
+                    
+                    <asp:CommandField ShowEditButton="True" HeaderText="Edit" />
                 </Columns>
                 <FooterStyle CssClass="footer-style" />
                 <HeaderStyle CssClass="header-style" />
@@ -127,8 +150,14 @@
 
             <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
                 ConnectionString="<%$ ConnectionStrings:dentistdatabaseConnectionString %>" 
-                SelectCommand="SELECT [AppointmentStatus], [Patient_LastName], [Patient_FirstName], [Service_name], [Additional_Info], [Booking_Date], [Price] FROM [Appointment]">
+                SelectCommand="SELECT [Booking_Id], [AppointmentStatus], [Patient_LastName], [Patient_FirstName], [Service_name], [Additional_Info], [Booking_Date], [Price] FROM [Appointment]"
+                UpdateCommand="UPDATE [Appointment] SET [AppointmentStatus] = @AppointmentStatus WHERE [Booking_Id] = @Booking_Id">
+                <UpdateParameters>
+                    <asp:Parameter Name="AppointmentStatus" Type="String" />
+                    <asp:Parameter Name="Booking_Id" Type="Int32" />
+                </UpdateParameters>
             </asp:SqlDataSource>
+
         </section>
 
         <section class="doctor-profile-section">
@@ -164,5 +193,5 @@
             <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Edit Doctor Profile" CssClass="button-edit" />
         </div>
     </div>
-
 </asp:Content>
+

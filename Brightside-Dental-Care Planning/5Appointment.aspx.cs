@@ -9,11 +9,8 @@ namespace Brightside_Dental_Care_Planning
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["AppointmentMade"] != null && (bool)Session["AppointmentMade"])
-            {
-                StatusLabel.Text = "You already made an appointment. Call the admin to delete or edit your appointment.";
-                AppointmentPanel.Visible = false; // Hide the appointment form
-            }
+            // Update the logic to show the appointment panel regardless of existing appointments
+            AppointmentPanel.Visible = true;
         }
 
         protected void MakeAppointmentButton_Click(object sender, EventArgs e)
@@ -30,23 +27,36 @@ namespace Brightside_Dental_Care_Planning
 
             int patientId = Convert.ToInt32(Session["Patient_Id"]);
 
-            // Check if appointment is already made
-            if (Session["AppointmentMade"] != null && (bool)Session["AppointmentMade"])
-            {
-                ErrorLabel.Text = "You already made an appointment. Call the admin to delete or edit your appointment.";
-                return;
-            }
-
-            string serviceType = ServiceType.SelectedValue;
-            DateTime bookingDate;
-
             // Validate booking date
+            DateTime bookingDate;
             if (!DateTime.TryParse(AppointmentDate.Text, out bookingDate))
             {
                 ErrorLabel.Text = "Please enter a valid appointment date.";
                 return;
             }
 
+            // Check if the selected date is a past date
+            if (bookingDate < DateTime.Today)
+            {
+                ErrorLabel.Text = "Please select a date that is today or in the future.";
+                return;
+            }
+
+            // Check if the selected date is a Sunday
+            if (bookingDate.DayOfWeek == DayOfWeek.Sunday)
+            {
+                ErrorLabel.Text = "Appointments cannot be made on Sundays.";
+                return;
+            }
+
+            // Check if the selected date is a Saturday
+            if (bookingDate.DayOfWeek == DayOfWeek.Saturday)
+            {
+                ErrorLabel.Text = "Appointments cannot be made on Saturdays.";
+                return;
+            }
+
+            string serviceType = ServiceType.SelectedValue;
             string additionalInfo = AdditionalInfo.Text;
 
             // Retrieve first and last names from session
@@ -58,16 +68,16 @@ namespace Brightside_Dental_Care_Planning
 
             if (appointmentSaved)
             {
-                Session["AppointmentMade"] = true; // Set session variable to indicate appointment is made
-                StatusLabel.Text = "Appointment made successfully!<br/>You can now logout.<br/>Call the admin to delete or edit your appointment..<br/>0637968112"; // Display success message
+                StatusLabel.Text = "Appointment made successfully!<br/>You can now logout.<br/>Call the admin to delete or edit your appointment.<br/>0637968112"; // Display success message
                 StatusLabel.Visible = true; // Ensure status label is visible
-                AppointmentPanel.Visible = true; // Hide the appointment form
             }
             else
             {
                 ErrorLabel.Text = "Error making appointment. Please try again.";
             }
         }
+
+
 
 
         private bool SaveAppointment(int patientId, string serviceType, DateTime bookingDate, string additionalInfo, string firstName, string lastName)
@@ -147,6 +157,12 @@ namespace Brightside_Dental_Care_Planning
                 }
             }
         }
+        protected void BackToProfileButton_Click(object sender, EventArgs e)
+        {
+            // Redirect to profile view page
+            Response.Redirect("~/11ProfileView.aspx");
+        }
+
 
         protected void ServiceType_SelectedIndexChanged(object sender, EventArgs e)
         {

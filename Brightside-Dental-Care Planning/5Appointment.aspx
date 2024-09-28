@@ -97,7 +97,7 @@
         <section class="appointment-section">
             <h1 id="title" class="appointment-title">Make an Appointment</h1>
 
-            <asp:Panel ID="AppointmentPanel" runat="server">
+            <asp:Panel ID="AppointmentPanel" runat="server" Height="551px">
                 <!-- Service Type Field -->
                 <asp:Label ID="ServiceTypeLabel" runat="server" Text="Service Type:" AssociatedControlID="ServiceType" CssClass="appointment-label"></asp:Label>
                 <asp:DropDownList ID="ServiceType" runat="server" CssClass="input-text" DataSourceID="SqlDataSource1" DataTextField="Service_name" DataValueField="Service_name">
@@ -116,9 +116,15 @@
                 <asp:TextBox ID="AdditionalInfo" runat="server" CssClass="input-text"></asp:TextBox>
 
                 <!-- Make Appointment Button -->
+                <!-- Make Appointment Button -->
                 <asp:Button ID="MakeAppointmentButton" runat="server" Text="Make Appointment" CssClass="appointment-btn" OnClick="MakeAppointmentButton_Click" />
 
-                <!-- Status Messages -->
+                <!-- Add a div for spacing between buttons -->
+                <div style="height: 20px;"></div>
+
+               <!-- Back To Profile Button -->
+               <asp:Button ID="BackToProfileButton" runat="server" CssClass="appointment-btn" Text="Back To Profile" OnClick="BackToProfileButton_Click" />
+
                 <asp:Label ID="StatusLabel" runat="server" CssClass="status-message"></asp:Label>
                 <asp:Label ID="ErrorLabel" runat="server" CssClass="error-message"></asp:Label>
             </asp:Panel>
