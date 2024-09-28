@@ -332,7 +332,7 @@ namespace Brightside_Dental_Care_Planning
 
         protected void Button2_Click(object sender, EventArgs e)
         {
-            Response.Redirect(" 22AddDoctor.aspx");
+            Response.Redirect("22AddDoctor.aspx");
         }
 
         protected void Button3_Click(object sender, EventArgs e)
