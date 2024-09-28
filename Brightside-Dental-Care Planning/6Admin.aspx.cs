@@ -329,5 +329,20 @@ namespace Brightside_Dental_Care_Planning
             Response.Redirect("20requestReports.aspx");
             
         }
+
+        protected void Button2_Click(object sender, EventArgs e)
+        {
+            Response.Redirect(" 22AddDoctor.aspx");
+        }
+
+        protected void Button3_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("23AddAdmin.aspx");
+        }
+
+        protected void Button4_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("24AddServiceTypes.aspx");
+        }
     }
 }

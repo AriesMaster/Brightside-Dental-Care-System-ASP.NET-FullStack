@@ -395,11 +395,11 @@
             <td style="height: 30px">
                 <asp:Button ID="Button1" runat="server" CssClass="styled-button" Text="Request reports" OnClick="Button1_Click" />
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <asp:Button ID="Button2" runat="server" CssClass="styled-button" Text="Add Doctor" />
+                <asp:Button ID="Button2" runat="server" CssClass="styled-button" Text="Add Doctor" OnClick="Button2_Click" />
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <asp:Button ID="Button3" runat="server" CssClass="styled-button" Text="Add Admin" />
+                <asp:Button ID="Button3" runat="server" CssClass="styled-button" Text="Add Admin" OnClick="Button3_Click" />
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <asp:Button ID="Button4" runat="server" CssClass="styled-button" Text="Add Service Types" />
+                <asp:Button ID="Button4" runat="server" CssClass="styled-button" Text="Add Service Types" OnClick="Button4_Click" />
             </td>
         </tr>
         <tr>
