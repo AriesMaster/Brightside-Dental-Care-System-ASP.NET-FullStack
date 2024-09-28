@@ -115,5 +115,13 @@ namespace Brightside_Dental_Care_Planning
                 Response.Redirect("5Appointment.aspx");
             }
         }
+
+        // New method to view appointments
+        protected void ViewAppointmentsButton_Click(object sender, EventArgs e)
+        {
+            // Redirect to the view appointments page
+            Response.Redirect("21ViewAppointments.aspx");
+        }
+
     }
 }

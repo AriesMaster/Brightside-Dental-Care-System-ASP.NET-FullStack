@@ -123,6 +123,15 @@ namespace Brightside_Dental_Care_Planning
         protected global::System.Web.UI.WebControls.Button MakeAppointmentButton;
 
         /// <summary>
+        /// ViewAppointmentsButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ViewAppointmentsButton;
+
+        /// <summary>
         /// AppointmentStatusLabel control.
         /// </summary>
         /// <remarks>

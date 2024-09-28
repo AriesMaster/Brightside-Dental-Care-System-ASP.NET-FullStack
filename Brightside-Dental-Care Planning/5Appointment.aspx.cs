@@ -163,6 +163,11 @@ namespace Brightside_Dental_Care_Planning
             Response.Redirect("~/11ProfileView.aspx");
         }
 
+        protected void ViewAppointmentsButton_Click(object sender, EventArgs e)
+        {
+            // Redirect to the View Appointments page
+            Response.Redirect("21ViewAppointments.aspx"); // Change to the actual view appointments page URL
+        }
 
         protected void ServiceType_SelectedIndexChanged(object sender, EventArgs e)
         {

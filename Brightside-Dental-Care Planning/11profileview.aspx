@@ -96,38 +96,43 @@
 
             <!-- Profile Details -->
             <asp:Panel ID="ProfileViewPanel" runat="server">
-                <div class="profile-info">
-                    <strong>First Name:</strong> <asp:Label ID="FirstNameLabel" runat="server" CssClass="profile-info"></asp:Label>
-                </div>
-                <div class="profile-info">
-                    <strong>Last Name:</strong> <asp:Label ID="LastNameLabel" runat="server" CssClass="profile-info"></asp:Label>
-                </div>
-                <div class="profile-info">
-                    <strong>Phone Number:</strong> <asp:Label ID="PhoneNumberLabel" runat="server" CssClass="profile-info"></asp:Label>
-                </div>
-                <div class="profile-info">
-                    <strong>Date of Birth:</strong> <asp:Label ID="DateOfBirthLabel" runat="server" CssClass="profile-info"></asp:Label>
-                </div>
-                <div class="profile-info">
-                    <strong>Gender:</strong> <asp:Label ID="GenderLabel" runat="server" CssClass="profile-info"></asp:Label>
-                </div>
-                <div class="profile-info">
-                    <strong>Address:</strong> <asp:Label ID="AddressLabel" runat="server" CssClass="profile-info"></asp:Label>
-                </div>
+    <div class="profile-info">
+        <strong>First Name:</strong> <asp:Label ID="FirstNameLabel" runat="server" CssClass="profile-info"></asp:Label>
+    </div>
+    <div class="profile-info">
+        <strong>Last Name:</strong> <asp:Label ID="LastNameLabel" runat="server" CssClass="profile-info"></asp:Label>
+    </div>
+    <div class="profile-info">
+        <strong>Phone Number:</strong> <asp:Label ID="PhoneNumberLabel" runat="server" CssClass="profile-info"></asp:Label>
+    </div>
+    <div class="profile-info">
+        <strong>Date of Birth:</strong> <asp:Label ID="DateOfBirthLabel" runat="server" CssClass="profile-info"></asp:Label>
+    </div>
+    <div class="profile-info">
+        <strong>Gender:</strong> <asp:Label ID="GenderLabel" runat="server" CssClass="profile-info"></asp:Label>
+    </div>
+    <div class="profile-info">
+        <strong>Address:</strong> <asp:Label ID="AddressLabel" runat="server" CssClass="profile-info"></asp:Label>
+    </div>
 
-                <!-- Status Message Label -->
-                <asp:Label ID="ProfileStatusLabel" runat="server" CssClass="status-message"></asp:Label>
+    <!-- Status Message Label -->
+    <asp:Label ID="ProfileStatusLabel" runat="server" CssClass="status-message"></asp:Label>
 
-                <!-- Button to Edit Profile (Visible if profile exists) -->
-                <asp:Button ID="EditProfileButton" runat="server" Text="Edit Profile" OnClick="EditProfileButton_Click" CssClass="profile-btn" Visible="false" />
+    <!-- Button to Edit Profile (Visible if profile exists) -->
+    <asp:Button ID="EditProfileButton" runat="server" Text="Edit Profile" OnClick="EditProfileButton_Click" CssClass="profile-btn" Visible="false" />
 
-                <!-- Button to Create Profile (Visible if no profile exists) -->
-                <asp:Button ID="CreateProfileButton" runat="server" Text="Create Profile" OnClick="CreateProfileButton_Click" CssClass="profile-btn" Visible="true" />
+    <!-- Button to Create Profile (Visible if no profile exists) -->
+    <asp:Button ID="CreateProfileButton" runat="server" Text="Create Profile" OnClick="CreateProfileButton_Click" CssClass="profile-btn" Visible="true" />
 
-                <!-- Make Appointment Button -->
-                <asp:Button ID="MakeAppointmentButton" runat="server" Text="Make Appointment" OnClick="MakeAppointmentButton_Click" CssClass="profile-btn" />
-                <asp:Label ID="AppointmentStatusLabel" runat="server" CssClass="status-message"></asp:Label>
-            </asp:Panel>
+    <!-- Make Appointment Button -->
+    <asp:Button ID="MakeAppointmentButton" runat="server" Text="Make Appointment" OnClick="MakeAppointmentButton_Click" CssClass="profile-btn" />
+
+    <!-- View Appointments Button -->
+    <asp:Button ID="ViewAppointmentsButton" runat="server" Text="View Appointments" OnClick="ViewAppointmentsButton_Click" CssClass="profile-btn" />
+
+    <asp:Label ID="AppointmentStatusLabel" runat="server" CssClass="status-message"></asp:Label>
+</asp:Panel>
+
         </section>
     </main>
 </asp:Content>

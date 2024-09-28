@@ -105,6 +105,15 @@ namespace Brightside_Dental_Care_Planning
         protected global::System.Web.UI.WebControls.Button BackToProfileButton;
 
         /// <summary>
+        /// ViewAppointmentsButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ViewAppointmentsButton;
+
+        /// <summary>
         /// StatusLabel control.
         /// </summary>
         /// <remarks>

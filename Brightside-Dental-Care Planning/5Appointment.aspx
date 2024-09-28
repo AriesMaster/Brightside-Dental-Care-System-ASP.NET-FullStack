@@ -116,14 +116,19 @@
                 <asp:TextBox ID="AdditionalInfo" runat="server" CssClass="input-text"></asp:TextBox>
 
                 <!-- Make Appointment Button -->
-                <!-- Make Appointment Button -->
                 <asp:Button ID="MakeAppointmentButton" runat="server" Text="Make Appointment" CssClass="appointment-btn" OnClick="MakeAppointmentButton_Click" />
 
                 <!-- Add a div for spacing between buttons -->
                 <div style="height: 20px;"></div>
 
-               <!-- Back To Profile Button -->
-               <asp:Button ID="BackToProfileButton" runat="server" CssClass="appointment-btn" Text="Back To Profile" OnClick="BackToProfileButton_Click" />
+                <!-- Back To Profile Button -->
+                <asp:Button ID="BackToProfileButton" runat="server" CssClass="appointment-btn" Text="Back To Profile" OnClick="BackToProfileButton_Click" />
+
+                 <!-- Add a div for spacing between buttons -->
+                <div style="height: 20px;"></div>
+                
+                <!-- New View Appointments Button -->
+                <asp:Button ID="ViewAppointmentsButton" runat="server" CssClass="appointment-btn" Text="View Appointments" OnClick="ViewAppointmentsButton_Click" />
 
                 <asp:Label ID="StatusLabel" runat="server" CssClass="status-message"></asp:Label>
                 <asp:Label ID="ErrorLabel" runat="server" CssClass="error-message"></asp:Label>
