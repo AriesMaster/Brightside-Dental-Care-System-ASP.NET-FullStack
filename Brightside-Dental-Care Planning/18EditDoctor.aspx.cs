@@ -70,5 +70,11 @@ namespace Brightside_Dental_Care_Planning
             // Optionally, redirect to another page or display a success message
             Response.Redirect("9Doctor.aspx");
         }
+
+        protected void ButtonCancel_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("9Doctor.aspx");
+        }
     }
+    
 }

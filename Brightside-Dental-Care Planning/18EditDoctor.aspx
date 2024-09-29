@@ -74,6 +74,8 @@
             </div>
 
             <asp:Button ID="SaveButton" runat="server" Text="Save Changes" CssClass="button-save" OnClick="SaveButton_Click" />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <asp:Button ID="ButtonCancel" runat="server" CssClass="button-save" OnClick="ButtonCancel_Click" Text="Cancel" />
         </asp:Panel>
     </div>
 </asp:Content>

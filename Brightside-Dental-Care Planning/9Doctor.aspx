@@ -112,8 +112,8 @@
                 OnRowCancelingEdit="GridView1_RowCancelingEdit">
                 <Columns>
 
-                    
-                    <asp:TemplateField HeaderText="Update Appointment Status">
+                    <asp:CommandField ShowEditButton="True" HeaderText="Update Appointment Status" />
+                    <asp:TemplateField HeaderText="Appointment Status">
                         <EditItemTemplate>
                             <asp:DropDownList ID="ddlAppointmentStatus" runat="server" SelectedValue='<%# Bind("AppointmentStatus") %>'>
                                 <asp:ListItem Text="Pending" Value="Pending"></asp:ListItem>
@@ -135,7 +135,7 @@
                     <asp:BoundField DataField="Price" HeaderText="Price" SortExpression="Price" ReadOnly="True" />
 
                     
-                    <asp:CommandField ShowEditButton="True" HeaderText="Edit" />
+                    
                 </Columns>
                 <FooterStyle CssClass="footer-style" />
                 <HeaderStyle CssClass="header-style" />
@@ -191,6 +191,7 @@
 
         <div class="edit-profile-button">
             <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Edit Doctor Profile" CssClass="button-edit" />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </div>
     </div>
 </asp:Content>

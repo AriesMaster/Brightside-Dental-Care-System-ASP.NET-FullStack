@@ -6,80 +6,77 @@ using System.Web.UI.WebControls;
 
 namespace Brightside_Dental_Care_Planning
 {
-    public partial class WebForm16 : System.Web.UI.Page
+    public partial class WebForm11 : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Initial Page Load Logic
             if (!IsPostBack)
             {
-                // Load initial report
-                LoadPatientAppointmentsSummary();
-            }
-        }
-
-        private void LoadPatientAppointmentsSummary()
-        {
-            string query = @"
-                SELECT p.Patient_Id, 
-                       pr.first_name + ' ' + pr.last_name AS PatientName,
-                       COUNT(a.Booking_Id) AS TotalAppointments, 
-                       SUM(CASE WHEN a.Status = 'Completed' THEN 1 ELSE 0 END) AS CompletedAppointments
-                FROM Patient p
-                LEFT JOIN Profile pr ON p.Patient_Id = pr.Patient_Id
-                LEFT JOIN Appointment a ON p.Patient_Id = a.Patient_Id
-                GROUP BY p.Patient_Id, pr.first_name, pr.last_name
-                ORDER BY TotalAppointments DESC";
-
-            using (SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["dentistdatabaseConnectionString"].ConnectionString))
-            {
-                SqlDataAdapter da = new SqlDataAdapter(query, conn);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-                GridViewPatientAppointments.DataSource = dt;
-                GridViewPatientAppointments.DataBind();
+                // Optionally set default dates or any initialization logic
+                TextBoxStartDate.Text = DateTime.Now.AddMonths(-1).ToString("yyyy-MM-dd"); // One month ago
+                TextBoxEndDate.Text = DateTime.Now.ToString("yyyy-MM-dd"); // Today
             }
         }
 
         protected void ButtonGenerateReport_Click(object sender, EventArgs e)
         {
+            // Get start and end dates
             DateTime startDate;
             DateTime endDate;
 
-            if (DateTime.TryParse(StartDate.Text, out startDate) && DateTime.TryParse(EndDate.Text, out endDate))
+            if (DateTime.TryParse(TextBoxStartDate.Text, out startDate) && DateTime.TryParse(TextBoxEndDate.Text, out endDate))
             {
-                LoadServicesUtilizedSummary(startDate, endDate);
+                // Generate report based on the date range
+                GenerateReport(startDate, endDate);
             }
             else
             {
-                // Handle invalid date input
-                // You can show a message or set an error label
+                LabelMessage.Text = "Please enter valid start and end dates.";
+                LabelMessage.Visible = true;
             }
         }
 
-        private void LoadServicesUtilizedSummary(DateTime startDate, DateTime endDate)
+        private void GenerateReport(DateTime startDate, DateTime endDate)
         {
             string query = @"
-                SELECT s.Service_Type_Id, s.Service_Name, 
-                       COUNT(a.Booking_Id) AS TotalBookings, 
-                       SUM(a.Cost) AS TotalRevenue
-                FROM Service_Type s
-                JOIN Appointment a ON s.Service_Type_Id = a.Service_Type_Id
-                WHERE a.Booking_Date BETWEEN @StartDate AND @EndDate
-                GROUP BY s.Service_Type_Id, s.Service_Name
-                ORDER BY TotalRevenue DESC";
+                SELECT 
+                    d.first_name + ' ' + d.last_name AS DoctorName, 
+                    COUNT(a.Booking_Id) AS TotalAppointments, 
+                    SUM(s.Price) AS TotalRevenue
+                FROM 
+                    Appointment a
+                INNER JOIN 
+                    Doctor d ON a.Doctor_Id = d.Doctor_Id
+                INNER JOIN 
+                    Service_Type s ON a.Service_Type_Id = s.Service_Type_Id
+                WHERE 
+                    a.Appointment_Date BETWEEN @StartDate AND @EndDate
+                GROUP BY 
+                    d.first_name, d.last_name
+                ORDER BY 
+                    TotalRevenue DESC;";
 
             using (SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["dentistdatabaseConnectionString"].ConnectionString))
             {
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@StartDate", startDate);
-                cmd.Parameters.AddWithValue("@EndDate", endDate);
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@StartDate", startDate);
+                    cmd.Parameters.AddWithValue("@EndDate", endDate);
 
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-                GridViewServicesUtilized.DataSource = dt;
-                GridViewServicesUtilized.DataBind();
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+
+                        GridViewReports.DataSource = dt;
+                        GridViewReports.DataBind();
+                    }
+                }
             }
+
+            LabelMessage.Text = "Report generated successfully.";
+            LabelMessage.Visible = true;
         }
     }
 }

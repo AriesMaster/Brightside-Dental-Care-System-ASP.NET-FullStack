@@ -111,7 +111,7 @@
                     <asp:TextBox ID="TextBoxPassword" runat="server" Text='<%# Bind("password") %>' TextMode="Password"></asp:TextBox>
                 </EditItemTemplate>
             </asp:TemplateField>
-            <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" />
+            <asp:CommandField HeaderText="Actions" ShowDeleteButton="True" ShowEditButton="True" />
         </Columns>
         <FooterStyle BackColor="White" ForeColor="#000066" />
         <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
@@ -153,7 +153,7 @@
                         <asp:BoundField DataField="Date_of_Birth" HeaderText="Date_of_Birth" SortExpression="Date_of_Birth" />
                         <asp:BoundField DataField="Gender" HeaderText="Gender" SortExpression="Gender" />
                         <asp:BoundField DataField="phone_number" HeaderText="phone_number" SortExpression="phone_number" />
-                        <asp:CommandField ShowDeleteButton="True" />
+                        <asp:CommandField HeaderText="Actions" ShowDeleteButton="True" />
                     </Columns>
                     <FooterStyle BackColor="White" ForeColor="#000066" />
                     <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
@@ -186,7 +186,7 @@
                         <asp:BoundField DataField="Street" HeaderText="Street" SortExpression="Street" />
                         <asp:BoundField DataField="City" HeaderText="City" SortExpression="City" />
                         <asp:BoundField DataField="Province" HeaderText="Province" SortExpression="Province" />
-                        <asp:CommandField ShowDeleteButton="True" />
+                        <asp:CommandField HeaderText="Actions" ShowDeleteButton="True" />
                     </Columns>
                     <FooterStyle BackColor="White" ForeColor="#000066" />
                     <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
@@ -218,15 +218,15 @@
     DataSourceID="SqlDataSource4" OnRowDeleting="GridView4_RowDeleting">
     <Columns>
         
-        <asp:BoundField DataField="Booking_Id" HeaderText="Booking_Id" InsertVisible="False" ReadOnly="True" SortExpression="Booking_Id" />
-        <asp:BoundField DataField="Patient_Id" HeaderText="Patient_Id" SortExpression="Patient_Id" />
-        <asp:BoundField DataField="Service_Type_Id" HeaderText="Service_Type_Id" SortExpression="Service_Type_Id" />
+        
         <asp:BoundField DataField="Booking_Date" HeaderText="Booking_Date" SortExpression="Booking_Date" />
         <asp:BoundField DataField="Additional_Info" HeaderText="Additional_Info" SortExpression="Additional_Info" />
         <asp:BoundField DataField="Service_name" HeaderText="Service_name" SortExpression="Service_name" />
         <asp:BoundField DataField="Patient_FirstName" HeaderText="Patient_FirstName" SortExpression="Patient_FirstName" />
         <asp:BoundField DataField="Patient_LastName" HeaderText="Patient_LastName" SortExpression="Patient_LastName" />
-        <asp:CommandField ShowDeleteButton="True" />
+        <asp:BoundField DataField="Price" HeaderText="Price" SortExpression="Price" />
+        <asp:BoundField DataField="AppointmentStatus" HeaderText="AppointmentStatus" SortExpression="AppointmentStatus" />
+        <asp:CommandField HeaderText="Actions" ShowDeleteButton="True" />
         
     </Columns>
     <FooterStyle BackColor="White" ForeColor="#000066" />
@@ -261,15 +261,35 @@
 
 <asp:GridView ID="GridView5" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CCCCCC" 
     BorderStyle="None" BorderWidth="1px" CellPadding="3" DataKeyNames="Service_Type_Id" 
-    DataSourceID="SqlDataSource5" OnRowDeleting="GridView5_RowDeleting">
+    DataSourceID="SqlDataSource5" OnRowDeleting="GridView5_RowDeleting" 
+    OnRowEditing="GridView5_RowEditing" OnRowCancelingEdit="GridView5_RowCancelingEdit" 
+    OnRowUpdating="GridView5_RowUpdating">
     <Columns>
-        
         <asp:BoundField DataField="Service_Type_Id" HeaderText="Service_Type_Id" InsertVisible="False" ReadOnly="True" SortExpression="Service_Type_Id" />
-        <asp:BoundField DataField="Service_name" HeaderText="Service_name" SortExpression="Service_name" />
-        <asp:BoundField DataField="Service_Desc" HeaderText="Service_Desc" SortExpression="Service_Desc" />
-        <asp:CommandField ShowDeleteButton="True" />
         
+       
+        <asp:TemplateField HeaderText="Service_name">
+            <ItemTemplate>
+                <asp:Label ID="LabelServiceName" runat="server" Text='<%# Bind("Service_name") %>'></asp:Label>
+            </ItemTemplate>
+            <EditItemTemplate>
+                <asp:TextBox ID="TextBoxServiceName" runat="server" Text='<%# Bind("Service_name") %>'></asp:TextBox>
+            </EditItemTemplate>
+        </asp:TemplateField>
+
+        
+        <asp:TemplateField HeaderText="Service_Desc">
+            <ItemTemplate>
+                <asp:Label ID="LabelServiceDesc" runat="server" Text='<%# Bind("Service_Desc") %>'></asp:Label>
+            </ItemTemplate>
+            <EditItemTemplate>
+                <asp:TextBox ID="TextBoxServiceDesc" runat="server" Text='<%# Bind("Service_Desc") %>'></asp:TextBox>
+            </EditItemTemplate>
+        </asp:TemplateField>
+
+        <asp:CommandField HeaderText="Actions" ShowDeleteButton="True" ShowEditButton="True" />
     </Columns>
+    
     <FooterStyle BackColor="White" ForeColor="#000066" />
     <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
     <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />
@@ -281,14 +301,22 @@
     <SortedDescendingHeaderStyle BackColor="#00547E" />
 </asp:GridView>
 
+
 <asp:SqlDataSource ID="SqlDataSource5" runat="server" 
     ConnectionString="<%$ ConnectionStrings:dentistdatabaseConnectionString %>" 
     SelectCommand="SELECT * FROM [Service_Type]" 
+    UpdateCommand="UPDATE [Service_Type] SET Service_name = @Service_name, Service_Desc = @Service_Desc WHERE Service_Type_Id = @Service_Type_Id"
     DeleteCommand="DELETE FROM [Service_Type] WHERE [Service_Type_Id] = @Service_Type_Id">
+    <UpdateParameters>
+        <asp:Parameter Name="Service_name" Type="String" />
+        <asp:Parameter Name="Service_Desc" Type="String" />
+        <asp:Parameter Name="Service_Type_Id" Type="Int32" />
+    </UpdateParameters>
     <DeleteParameters>
         <asp:Parameter Name="Service_Type_Id" Type="Int32" />
     </DeleteParameters>
 </asp:SqlDataSource>
+
 
             </td>
         </tr>
@@ -304,35 +332,65 @@
 
 <asp:GridView ID="GridView6" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CCCCCC" 
     BorderStyle="None" BorderWidth="1px" CellPadding="3" DataKeyNames="Doctor_Id" DataSourceID="SqlDataSource6" 
-    OnRowDeleting="GridView6_RowDeleting">
+    OnRowDeleting="GridView6_RowDeleting" OnRowEditing="GridView6_RowEditing" 
+    OnRowCancelingEdit="GridView6_RowCancelingEdit" OnRowUpdating="GridView6_RowUpdating">
     <Columns>
         <asp:BoundField DataField="Doctor_Id" HeaderText="Doctor_Id" InsertVisible="False" ReadOnly="True" SortExpression="Doctor_Id" />
-        <asp:BoundField DataField="email" HeaderText="Email" SortExpression="email" />
-        <asp:BoundField DataField="password" HeaderText="Password" SortExpression="password" />
-        <asp:BoundField DataField="first_name" HeaderText="First Name" SortExpression="first_name" />
-        <asp:BoundField DataField="last_name" HeaderText="Last Name" SortExpression="last_name" />
-        <asp:CommandField ShowDeleteButton="True" />
+        <asp:TemplateField HeaderText="Email">
+            <ItemTemplate>
+                <asp:Label ID="LabelEmail" runat="server" Text='<%# Bind("email") %>'></asp:Label>
+            </ItemTemplate>
+            <EditItemTemplate>
+                <asp:TextBox ID="TextBoxEmail" runat="server" Text='<%# Bind("email") %>'></asp:TextBox>
+            </EditItemTemplate>
+        </asp:TemplateField>
+        <asp:TemplateField HeaderText="Password">
+            <ItemTemplate>
+                <asp:Label ID="LabelPassword" runat="server" Text='<%# Bind("password") %>'></asp:Label>
+            </ItemTemplate>
+            <EditItemTemplate>
+                <asp:TextBox ID="TextBoxPassword" runat="server" Text='<%# Bind("password") %>'></asp:TextBox>
+            </EditItemTemplate>
+        </asp:TemplateField>
+        <asp:TemplateField HeaderText="First Name">
+            <ItemTemplate>
+                <asp:Label ID="LabelFirstName" runat="server" Text='<%# Bind("first_name") %>'></asp:Label>
+            </ItemTemplate>
+            <EditItemTemplate>
+                <asp:TextBox ID="TextBoxFirstName" runat="server" Text='<%# Bind("first_name") %>'></asp:TextBox>
+            </EditItemTemplate>
+        </asp:TemplateField>
+        <asp:TemplateField HeaderText="Last Name">
+            <ItemTemplate>
+                <asp:Label ID="LabelLastName" runat="server" Text='<%# Bind("last_name") %>'></asp:Label>
+            </ItemTemplate>
+            <EditItemTemplate>
+                <asp:TextBox ID="TextBoxLastName" runat="server" Text='<%# Bind("last_name") %>'></asp:TextBox>
+            </EditItemTemplate>
+        </asp:TemplateField>
+        <asp:CommandField HeaderText="Actions" ShowDeleteButton="True" ShowEditButton="True" />
     </Columns>
-    <FooterStyle BackColor="White" ForeColor="#000066" />
-    <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
-    <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />
-    <RowStyle ForeColor="#000066" />
-    <SelectedRowStyle BackColor="#669999" Font-Bold="True" ForeColor="White" />
-    <SortedAscendingCellStyle BackColor="#F1F1F1" />
-    <SortedAscendingHeaderStyle BackColor="#007DBB" />
-    <SortedDescendingCellStyle BackColor="#CAC9C9" />
-    <SortedDescendingHeaderStyle BackColor="#00547E" />
 </asp:GridView>
 
-<!-- SQL DataSource to connect to Doctor table -->
 <asp:SqlDataSource ID="SqlDataSource6" runat="server" 
     ConnectionString="<%$ ConnectionStrings:dentistdatabaseConnectionString %>" 
     SelectCommand="SELECT * FROM [Doctor]" 
-    DeleteCommand="DELETE FROM [Doctor] WHERE [Doctor_Id] = @Doctor_Id">
+    DeleteCommand="DELETE FROM [Doctor] WHERE [Doctor_Id] = @Doctor_Id" 
+    UpdateCommand="UPDATE [Doctor] SET email = @Email, password = @Password, first_name = @FirstName, last_name = @LastName WHERE Doctor_Id = @Doctor_Id">
     <DeleteParameters>
         <asp:Parameter Name="Doctor_Id" Type="Int32" />
     </DeleteParameters>
+    <UpdateParameters>
+        <asp:Parameter Name="Email" Type="String" />
+        <asp:Parameter Name="Password" Type="String" />
+        <asp:Parameter Name="FirstName" Type="String" />
+        <asp:Parameter Name="LastName" Type="String" />
+        <asp:Parameter Name="Doctor_Id" Type="Int32" />
+    </UpdateParameters>
 </asp:SqlDataSource>
+
+
+
 
             </td>
             <td rowspan="8">&nbsp;</td>
@@ -348,14 +406,48 @@
 
 <asp:GridView ID="GridView7" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CCCCCC" 
     BorderStyle="None" BorderWidth="1px" CellPadding="3" DataKeyNames="Admin_Id" DataSourceID="SqlDataSource7" 
-    OnRowDeleting="GridView7_RowDeleting">
+    OnRowDeleting="GridView7_RowDeleting" OnRowEditing="GridView7_RowEditing" OnRowUpdating="GridView7_RowUpdating"
+    OnRowCancelingEdit="GridView7_RowCancelingEdit">
     <Columns>
         <asp:BoundField DataField="Admin_Id" HeaderText="Admin_Id" InsertVisible="False" ReadOnly="True" SortExpression="Admin_Id" />
-        <asp:BoundField DataField="email" HeaderText="Email" SortExpression="email" />
-        <asp:BoundField DataField="password" HeaderText="Password" SortExpression="password" />
-        <asp:BoundField DataField="first_name" HeaderText="First Name" SortExpression="first_name" />
-        <asp:BoundField DataField="last_name" HeaderText="Last Name" SortExpression="last_name" />
-        <asp:CommandField ShowDeleteButton="True" />
+        
+        <asp:TemplateField HeaderText="Email">
+            <ItemTemplate>
+                <%# Eval("email") %>
+            </ItemTemplate>
+            <EditItemTemplate>
+                <asp:TextBox ID="TextBoxEmail" runat="server" Text='<%# Bind("email") %>'></asp:TextBox>
+            </EditItemTemplate>
+        </asp:TemplateField>
+
+        <asp:TemplateField HeaderText="Password">
+            <ItemTemplate>
+                <%# Eval("password") %>
+            </ItemTemplate>
+            <EditItemTemplate>
+                <asp:TextBox ID="TextBoxPassword" runat="server" Text='<%# Bind("password") %>' TextMode="Password"></asp:TextBox>
+            </EditItemTemplate>
+        </asp:TemplateField>
+
+        <asp:TemplateField HeaderText="First Name">
+            <ItemTemplate>
+                <%# Eval("first_name") %>
+            </ItemTemplate>
+            <EditItemTemplate>
+                <asp:TextBox ID="TextBoxFirstName" runat="server" Text='<%# Bind("first_name") %>'></asp:TextBox>
+            </EditItemTemplate>
+        </asp:TemplateField>
+
+        <asp:TemplateField HeaderText="Last Name">
+            <ItemTemplate>
+                <%# Eval("last_name") %>
+            </ItemTemplate>
+            <EditItemTemplate>
+                <asp:TextBox ID="TextBoxLastName" runat="server" Text='<%# Bind("last_name") %>'></asp:TextBox>
+            </EditItemTemplate>
+        </asp:TemplateField>
+
+        <asp:CommandField HeaderText="Actions" ShowDeleteButton="True" ShowEditButton="True" />
     </Columns>
     <FooterStyle BackColor="White" ForeColor="#000066" />
     <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
@@ -367,15 +459,23 @@
     <SortedDescendingCellStyle BackColor="#CAC9C9" />
     <SortedDescendingHeaderStyle BackColor="#00547E" />
 </asp:GridView>
-
-<asp:SqlDataSource ID="SqlDataSource7" runat="server" 
+&nbsp;<asp:SqlDataSource ID="SqlDataSource7" runat="server" 
     ConnectionString="<%$ ConnectionStrings:dentistdatabaseConnectionString %>" 
     SelectCommand="SELECT * FROM [Admin]" 
-    DeleteCommand="DELETE FROM [Admin] WHERE [Admin_Id] = @Admin_Id">
+    DeleteCommand="DELETE FROM [Admin] WHERE [Admin_Id] = @Admin_Id" 
+    UpdateCommand="UPDATE [Admin] SET email = @Email, password = @Password, first_name = @FirstName, last_name = @LastName WHERE Admin_Id = @Admin_Id">
     <DeleteParameters>
         <asp:Parameter Name="Admin_Id" Type="Int32" />
     </DeleteParameters>
+    <UpdateParameters>
+        <asp:Parameter Name="Email" Type="String" />
+        <asp:Parameter Name="Password" Type="String" />
+        <asp:Parameter Name="FirstName" Type="String" />
+        <asp:Parameter Name="LastName" Type="String" />
+        <asp:Parameter Name="Admin_Id" Type="Int32" />
+    </UpdateParameters>
 </asp:SqlDataSource>
+
 
             </td>
         </tr>

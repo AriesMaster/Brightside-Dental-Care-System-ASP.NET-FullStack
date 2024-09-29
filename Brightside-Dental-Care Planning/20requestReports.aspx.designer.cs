@@ -11,35 +11,44 @@ namespace Brightside_Dental_Care_Planning
 {
 
 
-    public partial class WebForm16
+    public partial class WebForm11
     {
 
         /// <summary>
-        /// GridViewPatientAppointments control.
+        /// LabelStartDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewPatientAppointments;
+        protected global::System.Web.UI.WebControls.Label LabelStartDate;
 
         /// <summary>
-        /// StartDate control.
+        /// TextBoxStartDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox StartDate;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxStartDate;
 
         /// <summary>
-        /// EndDate control.
+        /// LabelEndDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox EndDate;
+        protected global::System.Web.UI.WebControls.Label LabelEndDate;
+
+        /// <summary>
+        /// TextBoxEndDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxEndDate;
 
         /// <summary>
         /// ButtonGenerateReport control.
@@ -51,12 +60,21 @@ namespace Brightside_Dental_Care_Planning
         protected global::System.Web.UI.WebControls.Button ButtonGenerateReport;
 
         /// <summary>
-        /// GridViewServicesUtilized control.
+        /// GridViewReports control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewServicesUtilized;
+        protected global::System.Web.UI.WebControls.GridView GridViewReports;
+
+        /// <summary>
+        /// LabelMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelMessage;
     }
 }

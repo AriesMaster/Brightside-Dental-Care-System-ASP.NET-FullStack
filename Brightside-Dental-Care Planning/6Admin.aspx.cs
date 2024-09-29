@@ -232,6 +232,8 @@ namespace Brightside_Dental_Care_Planning
             DeleteSuccessMessageAppointments.Visible = true;
         }
 
+
+
         protected void GridView5_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             // Retrieve the Service_Type_Id from the GridView
@@ -263,66 +265,317 @@ namespace Brightside_Dental_Care_Planning
         }
 
 
+        protected void GridView5_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            // Set the row index to be edited
+            GridView5.EditIndex = e.NewEditIndex;
+
+            // Rebind the data to reflect the edit mode
+            GridView5.DataBind();
+        }
+
+        protected void GridView5_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        {
+            // Reset the edit index to cancel edit mode
+            GridView5.EditIndex = -1;
+
+            // Rebind the data to refresh the grid
+            GridView5.DataBind();
+        }
+
+        protected void GridView5_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+            try
+            {
+                // Retrieve the Service_Type_Id from the GridView's DataKeys
+                int serviceTypeId = (int)GridView5.DataKeys[e.RowIndex].Value;
+
+                // Get the new values from the GridView's EditItemTemplate controls
+                string serviceName = ((TextBox)GridView5.Rows[e.RowIndex].FindControl("TextBoxServiceName")).Text;
+                string serviceDesc = ((TextBox)GridView5.Rows[e.RowIndex].FindControl("TextBoxServiceDesc")).Text;
+
+                // Validate input
+                if (string.IsNullOrWhiteSpace(serviceName) || string.IsNullOrWhiteSpace(serviceDesc))
+                {
+                    throw new Exception("Service Name and Description cannot be empty.");
+                }
+
+                // Create SQL update query
+                string updateQuery = "UPDATE Service_Type SET Service_name = @ServiceName, Service_Desc = @ServiceDesc WHERE Service_Type_Id = @ServiceTypeId";
+
+                using (SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["dentistdatabaseConnectionString"].ConnectionString))
+                {
+                    conn.Open();
+
+                    // Execute the update command
+                    using (SqlCommand cmd = new SqlCommand(updateQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@ServiceName", serviceName);
+                        cmd.Parameters.AddWithValue("@ServiceDesc", serviceDesc);
+                        cmd.Parameters.AddWithValue("@ServiceTypeId", serviceTypeId);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                // Set success message
+                Session["SuccessMessageService"] = "Service type updated successfully.";
+
+                // Reset the edit index and rebind the grid
+                GridView5.EditIndex = -1;
+                GridView5.DataBind();
+            }
+            catch (SqlException sqlEx)
+            {
+                // Show SQL exception details
+                DeleteSuccessMessageServiceTypes.Text = "SQL Error: " + sqlEx.Message;
+                DeleteSuccessMessageServiceTypes.Visible = true;
+            }
+            catch (Exception ex)
+            {
+                // Show general exception details
+                DeleteSuccessMessageServiceTypes.Text = "Error: " + ex.Message;
+                DeleteSuccessMessageServiceTypes.Visible = true;
+            }
+        }
+
+
+
 
         protected void GridView6_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            // Retrieve the Doctor_Id from the GridView
-            int doctorId = (int)GridView6.DataKeys[e.RowIndex].Value;
-
-            // SQL delete query for doctor record (no need to delete appointments based on Doctor_Id)
-            string deleteDoctorQuery = "DELETE FROM Doctor WHERE Doctor_Id = @DoctorId";
-
-            using (SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["dentistdatabaseConnectionString"].ConnectionString))
+            try
             {
-                conn.Open();
+                // Retrieve the Doctor_Id from the GridView
+                int doctorId = (int)GridView6.DataKeys[e.RowIndex].Value;
 
-                // Delete the doctor record
-                using (SqlCommand cmd = new SqlCommand(deleteDoctorQuery, conn))
+                // SQL delete query for doctor record
+                string deleteDoctorQuery = "DELETE FROM Doctor WHERE Doctor_Id = @DoctorId";
+
+                using (SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["dentistdatabaseConnectionString"].ConnectionString))
                 {
-                    cmd.Parameters.AddWithValue("@DoctorId", doctorId);
-                    cmd.ExecuteNonQuery();
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(deleteDoctorQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@DoctorId", doctorId);
+                        cmd.ExecuteNonQuery();
+                    }
                 }
 
-                conn.Close();
+                // Rebind the GridView to refresh the data
+                GridView6.DataBind();
+                DeleteSuccessMessageDoctors.Text = "You have successfully removed the doctor record.";
+                DeleteSuccessMessageDoctors.Visible = true;
             }
-
-            // Rebind the GridView to refresh the data
-            GridView6.DataBind();
-
-            // Show success message for Doctor deletion
-            DeleteSuccessMessageDoctors.Text = "You have successfully removed the doctor record.";
-            DeleteSuccessMessageDoctors.Visible = true;
+            catch (Exception ex)
+            {
+                DeleteSuccessMessageDoctors.Text = "Error during deletion: " + ex.Message;
+                DeleteSuccessMessageDoctors.ForeColor = System.Drawing.Color.Red;
+                DeleteSuccessMessageDoctors.Visible = true;
+            }
         }
 
+        protected void GridView6_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            GridView6.EditIndex = e.NewEditIndex;
+            GridView6.DataBind();
+        }
+
+        protected void GridView6_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        {
+            GridView6.EditIndex = -1;
+            GridView6.DataBind();
+        }
+
+        protected void GridView6_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+            try
+            {
+                // Retrieve the Doctor_Id from the GridView
+                int doctorId = (int)GridView6.DataKeys[e.RowIndex].Value;
+
+                // Get new values from the GridView
+                string email = ((TextBox)GridView6.Rows[e.RowIndex].FindControl("TextBoxEmail")).Text.Trim();
+                string password = ((TextBox)GridView6.Rows[e.RowIndex].FindControl("TextBoxPassword")).Text.Trim();
+                string firstName = ((TextBox)GridView6.Rows[e.RowIndex].FindControl("TextBoxFirstName")).Text.Trim();
+                string lastName = ((TextBox)GridView6.Rows[e.RowIndex].FindControl("TextBoxLastName")).Text.Trim();
+
+                // Validate input
+                if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password) ||
+                    string.IsNullOrWhiteSpace(firstName) || string.IsNullOrWhiteSpace(lastName))
+                {
+                    throw new Exception("All fields are required.");
+                }
+
+                // SQL update query
+                string updateQuery = "UPDATE Doctor SET email = @Email, password = @Password, first_name = @FirstName, last_name = @LastName WHERE Doctor_Id = @DoctorId";
+
+                using (SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["dentistdatabaseConnectionString"].ConnectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(updateQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Email", email);
+                        cmd.Parameters.AddWithValue("@Password", password);
+                        cmd.Parameters.AddWithValue("@FirstName", firstName);
+                        cmd.Parameters.AddWithValue("@LastName", lastName);
+                        cmd.Parameters.AddWithValue("@DoctorId", doctorId);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                // Set success message
+                DeleteSuccessMessageDoctors.Text = "Doctor updated successfully.";
+                DeleteSuccessMessageDoctors.Visible = true;
+
+                // Reset the edit index and rebind the grid
+                GridView6.EditIndex = -1;
+                GridView6.DataBind();
+                Response.Redirect("6Admin.aspx"); // Update this with your actual admin page URL
+            }
+            catch (SqlException sqlEx)
+            {
+                // Log detailed SQL error
+                LogError(sqlEx);
+                DeleteSuccessMessageDoctors.Text = "SQL Error: " + sqlEx.Message;
+                DeleteSuccessMessageDoctors.ForeColor = System.Drawing.Color.Red;
+                DeleteSuccessMessageDoctors.Visible = true;
+            }
+            catch (Exception ex)
+            {
+                // Log generic error
+                LogError(ex);
+                DeleteSuccessMessageDoctors.Text = "Error during update: " + ex.Message;
+                DeleteSuccessMessageDoctors.ForeColor = System.Drawing.Color.Red;
+                DeleteSuccessMessageDoctors.Visible = true;
+            }
+        }
+
+        // Logging method to capture errors
+        private void LogError(Exception ex)
+        {
+            // Implement logging mechanism (e.g., log to a file, event viewer, etc.)
+            System.Diagnostics.Debug.WriteLine(ex.ToString());
+        }
+
+
+
+
+
+        // Event handler for deleting an admin record
         protected void GridView7_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            // Retrieve the Admin_Id from the GridView
-            int adminId = (int)GridView7.DataKeys[e.RowIndex].Value;
-
-            // SQL delete query for the admin record
-            string deleteAdminQuery = "DELETE FROM Admin WHERE Admin_Id = @AdminId";
-
-            using (SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["dentistdatabaseConnectionString"].ConnectionString))
+            try
             {
-                conn.Open();
+                // Retrieve the Admin_Id from the GridView
+                int adminId = (int)GridView7.DataKeys[e.RowIndex].Value;
 
-                // Delete the admin record
-                using (SqlCommand cmd = new SqlCommand(deleteAdminQuery, conn))
+                // SQL delete query for the admin record
+                string deleteAdminQuery = "DELETE FROM Admin WHERE Admin_Id = @AdminId";
+
+                using (SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["dentistdatabaseConnectionString"].ConnectionString))
                 {
-                    cmd.Parameters.AddWithValue("@AdminId", adminId);
-                    cmd.ExecuteNonQuery();
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(deleteAdminQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@AdminId", adminId);
+                        cmd.ExecuteNonQuery();
+                    }
                 }
 
-                conn.Close();
+                // Rebind the GridView to refresh the data
+                GridView7.DataBind();
+
+                // Show success message for admin deletion
+                DeleteSuccessMessageAdmins.Text = "You have successfully removed the admin record.";
+                DeleteSuccessMessageAdmins.ForeColor = System.Drawing.Color.Green;
+                DeleteSuccessMessageAdmins.Visible = true;
             }
-
-            // Rebind the GridView to refresh the data
-            GridView7.DataBind();
-
-            // Show success message for admin deletion
-            DeleteSuccessMessageAdmins.Text = "You have successfully removed the admin record.";
-            DeleteSuccessMessageAdmins.Visible = true;
+            catch (Exception ex)
+            {
+                DeleteSuccessMessageAdmins.Text = "Error during deletion: " + ex.Message;
+                DeleteSuccessMessageAdmins.ForeColor = System.Drawing.Color.Red;
+                DeleteSuccessMessageAdmins.Visible = true;
+            }
         }
+
+        // Event handler for editing an admin record
+        protected void GridView7_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            GridView7.EditIndex = e.NewEditIndex;
+            GridView7.DataBind();
+        }
+
+        // Event handler for canceling edit
+        protected void GridView7_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        {
+            GridView7.EditIndex = -1;
+            GridView7.DataBind();
+        }
+
+        // Event handler for updating an admin record
+        // Event handler for updating an admin record
+        protected void GridView7_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+            try
+            {
+                // Retrieve the Admin_Id from the GridView
+                int adminId = (int)GridView7.DataKeys[e.RowIndex].Value;
+
+                // Get new values from the GridView
+                string email = ((TextBox)GridView7.Rows[e.RowIndex].FindControl("TextBoxEmail")).Text.Trim();
+                string password = ((TextBox)GridView7.Rows[e.RowIndex].FindControl("TextBoxPassword")).Text.Trim();
+                string firstName = ((TextBox)GridView7.Rows[e.RowIndex].FindControl("TextBoxFirstName")).Text.Trim();
+                string lastName = ((TextBox)GridView7.Rows[e.RowIndex].FindControl("TextBoxLastName")).Text.Trim();
+
+                // Validate input
+                if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password) ||
+                    string.IsNullOrWhiteSpace(firstName) || string.IsNullOrWhiteSpace(lastName))
+                {
+                    throw new Exception("All fields are required.");
+                }
+
+                // SQL update query
+                string updateQuery = "UPDATE Admin SET email = @Email, password = @Password, first_name = @FirstName, last_name = @LastName WHERE Admin_Id = @AdminId";
+
+                using (SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["dentistdatabaseConnectionString"].ConnectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(updateQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Email", email);
+                        cmd.Parameters.AddWithValue("@Password", password);
+                        cmd.Parameters.AddWithValue("@FirstName", firstName);
+                        cmd.Parameters.AddWithValue("@LastName", lastName);
+                        cmd.Parameters.AddWithValue("@AdminId", adminId);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                // Show success message for admin update
+                DeleteSuccessMessageAdmins.Text = "Admin updated successfully.";
+                DeleteSuccessMessageAdmins.ForeColor = System.Drawing.Color.Green;
+                DeleteSuccessMessageAdmins.Visible = true;
+
+                // Reset the edit index and rebind the grid
+                GridView7.EditIndex = -1;
+                GridView7.DataBind();
+                Response.Redirect("6Admin.aspx"); // Update this with your actual admin page URL
+            }
+            catch (SqlException sqlEx)
+            {
+                DeleteSuccessMessageAdmins.Text = "SQL Error: " + sqlEx.Message;
+                DeleteSuccessMessageAdmins.ForeColor = System.Drawing.Color.Red;
+                DeleteSuccessMessageAdmins.Visible = true;
+            }
+            catch (Exception ex)
+            {
+                DeleteSuccessMessageAdmins.Text = "Error during update: " + ex.Message;
+                DeleteSuccessMessageAdmins.ForeColor = System.Drawing.Color.Red;
+                DeleteSuccessMessageAdmins.Visible = true;
+            }
+        }
+
+
 
         protected void Button1_Click(object sender, EventArgs e)
         {

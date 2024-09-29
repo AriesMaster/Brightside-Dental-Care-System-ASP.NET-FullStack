@@ -68,7 +68,7 @@ namespace Brightside_Dental_Care_Planning
 
             if (appointmentSaved)
             {
-                StatusLabel.Text = "Appointment made successfully!<br/>You can now logout.<br/>Call the admin to delete or edit your appointment.<br/>0637968112"; // Display success message
+                StatusLabel.Text = "Appointment made successfully!.<br/>Call the admin to delete or edit your appointment At 0637968112"; // Display success message
                 StatusLabel.Visible = true; // Ensure status label is visible
             }
             else

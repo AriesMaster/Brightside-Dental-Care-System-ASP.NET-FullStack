@@ -184,11 +184,11 @@
     <Content Include="9Doctor.aspx" />
     <Content Include="18EditDoctor.aspx" />
     <Content Include="19ProfilEdit.aspx" />
-    <Content Include="20requestReports.aspx" />
     <Content Include="21ViewAppointments.aspx" />
     <Content Include="22AddDoctor.aspx" />
     <Content Include="23AddAdmin.aspx" />
     <Content Include="24AddServiceTypes.aspx" />
+    <Content Include="20requestReports.aspx" />
     <None Include="Scripts\jquery-3.5.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.0.js" />
     <Content Include="Scripts\jquery-3.5.0.min.js" />
@@ -348,13 +348,6 @@
     <Compile Include="19ProfilEdit.aspx.designer.cs">
       <DependentUpon>19ProfilEdit.aspx</DependentUpon>
     </Compile>
-    <Compile Include="20requestReports.aspx.cs">
-      <DependentUpon>20requestReports.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="20requestReports.aspx.designer.cs">
-      <DependentUpon>20requestReports.aspx</DependentUpon>
-    </Compile>
     <Compile Include="21ViewAppointments.aspx.cs">
       <DependentUpon>21ViewAppointments.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -383,8 +376,17 @@
     <Compile Include="24AddServiceTypes.aspx.designer.cs">
       <DependentUpon>24AddServiceTypes.aspx</DependentUpon>
     </Compile>
+    <Compile Include="20requestReports.aspx.cs">
+      <DependentUpon>20requestReports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="20requestReports.aspx.designer.cs">
+      <DependentUpon>20requestReports.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.5.0.slim.min.map" />
