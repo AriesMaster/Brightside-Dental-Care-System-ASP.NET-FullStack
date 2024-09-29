@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -10,73 +11,122 @@ namespace Brightside_Dental_Care_Planning
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Initial Page Load Logic
             if (!IsPostBack)
             {
-                // Optionally set default dates or any initialization logic
-                TextBoxStartDate.Text = DateTime.Now.AddMonths(-1).ToString("yyyy-MM-dd"); // One month ago
-                TextBoxEndDate.Text = DateTime.Now.ToString("yyyy-MM-dd"); // Today
+                BindReportGrid();
             }
         }
 
-        protected void ButtonGenerateReport_Click(object sender, EventArgs e)
+        protected void FilterButton_Click(object sender, EventArgs e)
         {
-            // Get start and end dates
-            DateTime startDate;
-            DateTime endDate;
-
-            if (DateTime.TryParse(TextBoxStartDate.Text, out startDate) && DateTime.TryParse(TextBoxEndDate.Text, out endDate))
-            {
-                // Generate report based on the date range
-                GenerateReport(startDate, endDate);
-            }
-            else
-            {
-                LabelMessage.Text = "Please enter valid start and end dates.";
-                LabelMessage.Visible = true;
-            }
+            BindReportGrid();
         }
 
-        private void GenerateReport(DateTime startDate, DateTime endDate)
+        protected void DetailedFilterButton_Click(object sender, EventArgs e)
         {
+            BindDetailedReportGrid();
+        }
+
+        private void BindReportGrid()
+        {
+            string startDate = StartDate.Text;
+            string endDate = EndDate.Text;
+
+            // SQL query to get summarized report data
             string query = @"
                 SELECT 
-                    d.first_name + ' ' + d.last_name AS DoctorName, 
-                    COUNT(a.Booking_Id) AS TotalAppointments, 
-                    SUM(s.Price) AS TotalRevenue
+                    st.Service_name,
+                    COUNT(a.Booking_Id) AS TotalAppointments,
+                    SUM(a.Price) AS TotalRevenue,
+                    CAST(GETDATE() AS DATE) AS ReportDate
                 FROM 
                     Appointment a
                 INNER JOIN 
-                    Doctor d ON a.Doctor_Id = d.Doctor_Id
-                INNER JOIN 
-                    Service_Type s ON a.Service_Type_Id = s.Service_Type_Id
+                    Service_Type st ON a.Service_Type_Id = st.Service_Type_Id
                 WHERE 
-                    a.Appointment_Date BETWEEN @StartDate AND @EndDate
+                    a.Booking_Date BETWEEN @StartDate AND @EndDate
                 GROUP BY 
-                    d.first_name, d.last_name
-                ORDER BY 
-                    TotalRevenue DESC;";
+                    st.Service_name";
 
-            using (SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["dentistdatabaseConnectionString"].ConnectionString))
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["dentistdatabaseConnectionString"].ConnectionString))
             {
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@StartDate", startDate);
                     cmd.Parameters.AddWithValue("@EndDate", endDate);
 
-                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
-                    {
-                        DataTable dt = new DataTable();
-                        da.Fill(dt);
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
 
-                        GridViewReports.DataSource = dt;
-                        GridViewReports.DataBind();
+                    if (dt.Rows.Count > 0)
+                    {
+                        ReportGridView.DataSource = dt;
+                        ReportGridView.DataBind();
+                        NoRecordsLabel.Visible = false; // Hide no records message
+                    }
+                    else
+                    {
+                        // Show message if no records found
+                        NoRecordsLabel.Text = "No records found for the selected date range.";
+                        NoRecordsLabel.Visible = true;
+                        ReportGridView.DataSource = null; // Clear the grid view
+                        ReportGridView.DataBind(); // Rebind to refresh the grid view
                     }
                 }
             }
+        }
 
-            LabelMessage.Text = "Report generated successfully.";
-            LabelMessage.Visible = true;
+        private void BindDetailedReportGrid()
+        {
+            string startDate = DetailedStartDate.Text;
+            string endDate = DetailedEndDate.Text;
+
+            // SQL query to get detailed report data
+            string query = @"
+                SELECT 
+                    a.Booking_Id,
+                    p.first_name AS Patient_FirstName,
+                    p.last_name AS Patient_LastName,
+                    st.Service_name,
+                    a.Booking_Date,
+                    a.Price
+                FROM 
+                    Appointment a
+                INNER JOIN 
+                    Profile p ON a.Patient_Id = p.Patient_Id
+                INNER JOIN 
+                    Service_Type st ON a.Service_Type_Id = st.Service_Type_Id
+                WHERE 
+                    a.Booking_Date BETWEEN @StartDate AND @EndDate";
+
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["dentistdatabaseConnectionString"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@StartDate", startDate);
+                    cmd.Parameters.AddWithValue("@EndDate", endDate);
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+
+                    if (dt.Rows.Count > 0)
+                    {
+                        DetailedReportGridView.DataSource = dt;
+                        DetailedReportGridView.DataBind();
+                        DetailedNoRecordsLabel.Visible = false; // Hide no records message
+                    }
+                    else
+                    {
+                        // Show message if no records found
+                        DetailedNoRecordsLabel.Text = "No detailed records found for the selected date range.";
+                        DetailedNoRecordsLabel.Visible = true;
+                        DetailedReportGridView.DataSource = null; // Clear the grid view
+                        DetailedReportGridView.DataBind(); // Rebind to refresh the grid view
+                    }
+                }
+            }
         }
     }
 }

@@ -210,15 +210,12 @@
                 <strong>
                <asp:Label ID="Label5" runat="server" Text="Appointments" CssClass="auto-style2"></asp:Label>
                 </strong>
-<!-- Label for showing success message for appointments -->
 <asp:Label ID="DeleteSuccessMessageAppointments" runat="server" Text="" ForeColor="Green" Visible="False"></asp:Label>
 
 <asp:GridView ID="GridView4" runat="server" AllowSorting="True" AutoGenerateColumns="False" BackColor="White" 
     BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataKeyNames="Booking_Id" 
     DataSourceID="SqlDataSource4" OnRowDeleting="GridView4_RowDeleting">
     <Columns>
-        
-        
         <asp:BoundField DataField="Booking_Date" HeaderText="Booking_Date" SortExpression="Booking_Date" />
         <asp:BoundField DataField="Additional_Info" HeaderText="Additional_Info" SortExpression="Additional_Info" />
         <asp:BoundField DataField="Service_name" HeaderText="Service_name" SortExpression="Service_name" />
@@ -226,7 +223,16 @@
         <asp:BoundField DataField="Patient_LastName" HeaderText="Patient_LastName" SortExpression="Patient_LastName" />
         <asp:BoundField DataField="Price" HeaderText="Price" SortExpression="Price" />
         <asp:BoundField DataField="AppointmentStatus" HeaderText="AppointmentStatus" SortExpression="AppointmentStatus" />
-        <asp:CommandField HeaderText="Actions" ShowDeleteButton="True" />
+
+        
+        <asp:TemplateField HeaderText="Actions">
+            <ItemTemplate>
+                <asp:Button ID="EditButton" runat="server" Text="Edit" 
+                    PostBackUrl='<%# "~/25UpdateAppointment.aspx?Booking_Id=" + Eval("Booking_Id") %>' />
+                <asp:Button ID="DeleteButton" runat="server" Text="Delete" 
+                    CommandName="Delete" CommandArgument='<%# Eval("Booking_Id") %>' />
+            </ItemTemplate>
+        </asp:TemplateField>
         
     </Columns>
     <FooterStyle BackColor="White" ForeColor="#000066" />
@@ -246,6 +252,8 @@
         <asp:Parameter Name="Booking_Id" Type="Int32" />
     </DeleteParameters>
 </asp:SqlDataSource>
+
+
 
 
                     

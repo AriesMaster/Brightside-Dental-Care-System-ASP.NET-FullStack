@@ -226,15 +226,18 @@ namespace Brightside_Dental_Care_Planning
 
             // Rebind the GridView to refresh the data
             GridView4.DataBind();
-
+            //Response.Redirect("6Admin.aspx");
             // Show success message for appointments
             DeleteSuccessMessageAppointments.Text = "You have successfully removed the appointment record.";
             DeleteSuccessMessageAppointments.Visible = true;
         }
+    
 
 
 
-        protected void GridView5_RowDeleting(object sender, GridViewDeleteEventArgs e)
+
+
+    protected void GridView5_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             // Retrieve the Service_Type_Id from the GridView
             int serviceTypeId = (int)GridView5.DataKeys[e.RowIndex].Value;

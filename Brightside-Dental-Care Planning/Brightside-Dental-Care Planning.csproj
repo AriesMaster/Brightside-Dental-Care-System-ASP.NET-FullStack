@@ -188,6 +188,7 @@
     <Content Include="22AddDoctor.aspx" />
     <Content Include="23AddAdmin.aspx" />
     <Content Include="24AddServiceTypes.aspx" />
+    <Content Include="25UpdateAppointment.aspx" />
     <Content Include="20requestReports.aspx" />
     <None Include="Scripts\jquery-3.5.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.0.js" />
@@ -375,6 +376,13 @@
     </Compile>
     <Compile Include="24AddServiceTypes.aspx.designer.cs">
       <DependentUpon>24AddServiceTypes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="25UpdateAppointment.aspx.cs">
+      <DependentUpon>25UpdateAppointment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="25UpdateAppointment.aspx.designer.cs">
+      <DependentUpon>25UpdateAppointment.aspx</DependentUpon>
     </Compile>
     <Compile Include="20requestReports.aspx.cs">
       <DependentUpon>20requestReports.aspx</DependentUpon>

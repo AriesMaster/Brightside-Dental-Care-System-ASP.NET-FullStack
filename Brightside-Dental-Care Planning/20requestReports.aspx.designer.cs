@@ -15,66 +15,102 @@ namespace Brightside_Dental_Care_Planning
     {
 
         /// <summary>
-        /// LabelStartDate control.
+        /// StartDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelStartDate;
+        protected global::System.Web.UI.WebControls.TextBox StartDate;
 
         /// <summary>
-        /// TextBoxStartDate control.
+        /// EndDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxStartDate;
+        protected global::System.Web.UI.WebControls.TextBox EndDate;
 
         /// <summary>
-        /// LabelEndDate control.
+        /// FilterButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelEndDate;
+        protected global::System.Web.UI.WebControls.Button FilterButton;
 
         /// <summary>
-        /// TextBoxEndDate control.
+        /// MessageLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxEndDate;
+        protected global::System.Web.UI.WebControls.Label MessageLabel;
 
         /// <summary>
-        /// ButtonGenerateReport control.
+        /// ReportGridView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonGenerateReport;
+        protected global::System.Web.UI.WebControls.GridView ReportGridView;
 
         /// <summary>
-        /// GridViewReports control.
+        /// NoRecordsLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewReports;
+        protected global::System.Web.UI.WebControls.Label NoRecordsLabel;
 
         /// <summary>
-        /// LabelMessage control.
+        /// DetailedStartDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelMessage;
+        protected global::System.Web.UI.WebControls.TextBox DetailedStartDate;
+
+        /// <summary>
+        /// DetailedEndDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox DetailedEndDate;
+
+        /// <summary>
+        /// DetailedFilterButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button DetailedFilterButton;
+
+        /// <summary>
+        /// DetailedReportGridView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView DetailedReportGridView;
+
+        /// <summary>
+        /// DetailedNoRecordsLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label DetailedNoRecordsLabel;
     }
 }
