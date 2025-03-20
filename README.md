@@ -1,70 +1,105 @@
-#  Smiles-Dentistry
+# Brightside Dental Care Web Application System
 
-**Table of Content**
-1. Introduction
-2. Objectives
-3. Functional Requirements
-4. Appointment Management
-5. Administrative Functions
-6. Doctor Management
-7. Conclusion
+## Overview
+The **Brightside Dental Care Web Application System** is a comprehensive platform designed to streamline dental care management for patients, doctors, and administrators. It provides features for user registration, profile management, appointment scheduling, and service information. The system also includes administrative tools for managing users, appointments, and services, as well as generating reports.
 
-DOCUMENTATION
-[documentation.pdf](https://github.com/user-attachments/files/18464574/documentation.pdf)
+---
 
+## Features
 
-**INTRODUCTION**
+### **Patient Features**
+- **User Registration and Authentication**: Patients can sign up and log in using their email and password.
+- **Profile Management**: Patients can create, view, and edit their profiles, including personal details and contact information.
+- **Appointment Management**: Patients can view, make, and cancel appointments. They can also view the status of their appointment requests.
+- **Service Information**: Patients can browse the types of dental services offered and access contact information.
 
-The Brightside Dental Care Booking System is designed to facilitate efficient and user friendly booking management of dental for patients of all ages. This system will manage client registrations, appointments, and administrative functions while ensuring secure and efficient data handling.
+### **Doctor Features**
+- **Login**: Doctors can log in using their credentials.
+- **Appointment Management**: Doctors can view and update the status of patient appointments.
+- **Profile Management**: Doctors can view and edit their profile information.
 
-**OBJECTIVES**
+### **Admin Features**
+- **Login**: Admins can log in using their credentials.
+- **User Management**: Admins can edit and delete patient profiles.
+- **Appointment Management**: Admins can edit and delete appointments.
+- **Service Management**: Admins can add, edit, or delete service types and manage doctor profiles.
+- **Reporting and Analytics**: Admins can generate reports summarizing appointments and revenue.
 
-> Provide an intuitive booking interface for patients to schedule their dental appointments.
+---
 
-> Manage client information securely and efficiently.
-> 
-> Streamline administrative tasks for then dental clinic staff.
+## Technical Requirements
+- **Processor**: 4 GHz or faster 64-bit processor, Quad-core or better.
+- **RAM**: Minimum of 8 GB. 16 GB recommended for smooth operation.
+- **Hard Disk Space**: Minimum of 100 GB (includes space for Visual Studio).
+- **Display**: Video card supporting a minimum resolution of WXGA (1366 by 768).
 
-> Maintain accurate records of appointments and patient information.
+---
 
-> Enhance the overall patient experience.
+## Installation
 
-**FUNCTIONAL REQUIREMENTS**
+### **Step 1: Download and Install Visual Studio 2022**
+Ensure the following workloads are installed:
+- Azure development
+- .NET desktop development
+- Universal Windows Platform development
+- Data storage and processing
 
-**Client Registration and Login**
+Install necessary individual components and language packs.
 
-> **Registration:** Allow new patients to create an accoubnt by providing personal details(name, email, password, date of birth, phone number, gender).
+### **Step 2: Download the Brightside Dental Care Zip File**
+1. Navigate to the download location and unzip the file.
+2. Open the solution file `Brightside-Dental-Care-Planning.sln` in Visual Studio.
 
-> **Login:** Enable existing patients to log in using their email and password.
+### **Step 3: Set Up the Project**
+1. In **Solution Explorer**, right-click the homepage form and set it as the start page.
+2. Change the browser to **Brave** under IIS Express settings.
+3. Build the solution and run the project using IIS Express.
 
-> **Profile Management:** Allow patients to update their personal information and view their appointmennt  history.
+---
 
-**APPOINTMENT MANAGEMENT**
+## User Manual
 
-> **Booking:** Enable patients to book appointments by selecting a service type, preferred date and time and providin any additional information.
+### **Patient**
+- **Sign Up**: Enter your email and password to create an account.
+- **Login**: Choose "Patient" as the user type and enter your credentials.
+- **Profile**: Create and manage your profile, including personal details and address.
+- **Appointments**: Make, view, and cancel appointments.
 
-> **Appointment Confirmation:** Second confirmation notifications via email upon successful booking.
+### **Doctor**
+- **Login**: Use the provided doctor credentials to log in.
+- **Appointments**: View and update the status of patient appointments.
+- **Profile**: View and edit your profile information.
 
-> **View Appointments:** Allow patients to view upcoming and past appointments.
+### **Admin**
+- **Login**: Use the provided admin credentials to log in.
+- **Dashboard**: Manage patients, appointments, services, and doctors.
+- **Reports**: Generate appointment summary and detailed reports.
 
-> **Cancellation?Rescheduling:** Enable paatients to cancel or reschedule appointments within allowed timeframe.
+---
 
-**ADMMINISTRATIVE FUNCTIONS**
+## Database Schema
+The system uses a relational database with the following tables:
+- **Patient**
+- **Profile**
+- **Address**
+- **Doctor**
+- **Admin**
+- **Service Type**
+- **Appointment**
 
-> **Admin Login:** Provide a secure login for administrative staff to manage the system.
+SQL scripts for creating and maintaining these tables are provided in the documentation.
 
-> **Appointment Management:** Allow admin to view, confirm, cancel or reschedule appointments.
+---
 
-> **Patient Management:** Allow admin to view, add, update, or delete patient records.
+## Reports
+- **Appointment Summary Report**: Summarizes total appointments and revenue over a specified date range.
+- **Detailed Appointment Report**: Provides detailed information on each appointment within a specified date range.
 
-> **Service Management:** Allow admin to manage the list of services offered, including adding, updating or deleting services.
+---
 
-**DOCTOR MANAGEMENT**
+## Conclusion
+The **Brightside Dental Care Web Application System** offers a comprehensive solution for managing dental care services, ensuring a seamless experience for patients, doctors, and administrators. For further assistance, refer to the detailed user manual and technical documentation provided.
 
-> **Doctor Profiles:** Allow doctors to manage their profiles and view their appointment schedules.
+---
 
-> **Appointment Handling:** Enable doctors to confirm or request rescheduling of appointments based on their availability.
-
-**CONCLUSION**
-
-The Brightside Dental Care Booking Stystem aims to stramline the appointment booking process, enhance administrative effeciency, and improvr the overall patient experience. By addressing functional and non functional requirements, the system will provide a secure reliable and user friendly solution for managing dental care appointments.
+**End of README**
