@@ -1,5 +1,9 @@
 # Brightside Dental Care Web Application System
 
+## What this repository contains
+
+This repository presents the Brightside school project through its written overview and [project documentation PDF](https://github.com/user-attachments/files/19362819/documentation.pdf). The default branch contains documentation rather than a runnable application. The installation and deployment notes below describe the original project context.
+
 ## Overview
 The **Brightside Dental Care Web Application System** is a comprehensive platform designed to streamline dental care management for patients, doctors, and administrators. Built using **ASP.NET** and **C#**, with a **Microsoft SQL Server** database deployed on **Azure**, this system provides features for user registration, profile management, appointment scheduling, and service information. It also includes administrative tools for managing users, appointments, and services, as well as generating reports.
 
